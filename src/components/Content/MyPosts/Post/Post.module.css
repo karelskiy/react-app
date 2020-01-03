@@ -1,0 +1,15 @@
+.img {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.span1{
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 5px;
+}
+
+p{
+    margin-top: 0;
+    font-size: .8em;
+}

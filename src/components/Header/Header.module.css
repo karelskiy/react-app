@@ -1,0 +1,19 @@
+.header{
+    grid-area: header;
+    background-color: coral;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .header img{
+    width: 80px;
+    height: 40px;
+  }
+  
+  .header h1{
+    text-transform: uppercase;
+  }
+  
+  .item{
+      color: white;
+  }

@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header/Header.js';
+import Nav from './components/Nav-bar/Nav-bar.js';
+import Content from './components/Content/Content.js';
+import Example from './components/example';
+import Dialogs from './components/Dialogs/Dialogs';
+import { BrowserRouter, Route } from 'react-router-dom';
+import News from './components/News/News';
+import Music from './components/Music/Music';
+import Settings from './components/Settings/Settings';
 
-function App() {
+
+function App(props) {
+  // console.log(props)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        <Nav />
+        <div className='AppContents'>
+          <Route path='/profile' render={() => <Content updateText={props.updateText} addPosts={props.addPosts} postsData={props.state.contentPage.PostsData} text={props.state.contentPage.textForArea}/>} />
+          <Route path='/dialogs' render={() => <Dialogs click={props.click} textUpdate={props.textUpdate} textForDialogs={props.state.dialogsPage.newText} dialogs={props.state.dialogsPage.DialogsData} messages={props.state.dialogsPage.MessageData} />} />
+          <Route path='/news' component={News} />
+          <Route path='/music' component={Music} />
+          <Route path='/settings' component={Settings} />
+        </div>
+        {/* <Example /> */}
+      </div>
+    </BrowserRouter>
   );
 }
+
 
 export default App;

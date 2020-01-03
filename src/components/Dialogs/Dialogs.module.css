@@ -1,0 +1,30 @@
+.container{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogs{
+    padding: 10px;
+}
+
+.person{
+    padding: 5px;
+
+}
+
+.person a{
+    text-decoration: none;
+    color: black;
+}
+
+.messages{
+    padding: 10px;
+}
+.message{
+    padding: 5px;
+
+}
+
+.active{
+    color: gold;
+}
