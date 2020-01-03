@@ -1,8 +1,20 @@
-import state from './redux/state'
+// import state, { subscribe } from './redux/state'
+import store from './redux/state';
 import * as serviceWorker from './serviceWorker';
-import {reRender} from './render';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+// import {addPosts, updateText, textUpdate, click} from './redux/state';
 
-reRender(state);
+
+
+const reRender = (state) => {
+    ReactDOM.render(<App state={state} click={store.click.bind(store)} addPosts={store.addPosts.bind(store)} updateText={store.updateText.bind(store)} textUpdate={store.textUpdate.bind(store)} />, document.getElementById('root'));
+}
+reRender(store.getState());
+
+store.subscribe(reRender)
 
 
 // If you want your app to work offline and load faster, you can change
