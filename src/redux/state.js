@@ -1,3 +1,8 @@
+const ADD_POSTS = 'ADD-POSTS';
+const UPDATE_TEXT = 'UPDATE-TEXT';
+const CLICK = 'CLICK';
+const TEXT_UPDATE = 'TEXT-UPDATE';
+
 export const store = {
 
     _state: {
@@ -72,6 +77,10 @@ export const store = {
     }
 }
 
+export const addPostsActionCreator = () => ({ type: ADD_POSTS});
+export const updateTextActionCreator = (text) => ({type: UPDATE_TEXT, newText: text});
+export const clickActionCreator = () => ({type: CLICK});
+export const textUpdateActionCreator = (text) => ({type: TEXT_UPDATE, text: text});
 
 // window.state = state;
 

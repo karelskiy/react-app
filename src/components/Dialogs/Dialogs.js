@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
 import { NavLink } from 'react-router-dom';
+import { textUpdateActionCreator, clickActionCreator } from '../../redux/state';
 
 
 const DialogsItem = (props) => {
@@ -24,12 +25,12 @@ let anotherText = React.createRef();
 const Dialogs = (props) => {
 // ****************************
     const changeText = () => {
-        props.dispatch({type: 'TEXT-UPDATE', text: anotherText.current.value})
+        props.dispatch(textUpdateActionCreator(anotherText.current.value));
         // textUpdate(anotherText.current.value);
     }
 
     const click = () => {
-        props.dispatch({type: 'CLICK'})
+        props.dispatch(clickActionCreator());
     }
 // ****************************
 
