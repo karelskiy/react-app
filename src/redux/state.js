@@ -1,4 +1,5 @@
 export const store = {
+
     _state: {
         contentPage: {
             PostsData: [
@@ -24,45 +25,50 @@ export const store = {
             newText: 'kamasutra'
         }
     },
-    getState(){
+    _callSubscriber() { },
+
+
+    getState() {
         return this._state;
     },
-    _callSubscriber(){},
-
-    addPosts() {
-
-        let obj = {
-            likes: 0,
-            id: 4,
-            message: this._state.contentPage.textForArea,
-        }
-        this._state.contentPage.PostsData.push(obj);
-        this._state.contentPage.textForArea = '';
-        this._callSubscriber(this._state)
-    },
-
-    updateText(newText){
-        this._state.contentPage.textForArea = newText;
-        this._callSubscriber(this._state)
-    },
-
-    subscribe(observer){
+    subscribe(observer) {
         this._callSubscriber = observer;
     },
 
-    // *************
-    textUpdate(text){
-        this._state.dialogsPage.newText = text;
-        this._callSubscriber(this._state);
-    },
-    click(){
-        let obj = {
-            message: this._state.dialogsPage.newText
-        };
-    
-        this._state.dialogsPage.MessageData.push(obj);
-        this._state.dialogsPage.newText = '';
-        this._callSubscriber(this._state);
+
+    dispatch(action) {
+        switch (action.type) {
+            case 'ADD-POSTS':
+                let obj = {
+                    likes: 0,
+                    id: 4,
+                    message: this._state.contentPage.textForArea,
+                }
+                this._state.contentPage.PostsData.push(obj);
+                this._state.contentPage.textForArea = '';
+                this._callSubscriber(this._state);
+                break;
+
+            case 'UPDATE-TEXT':
+                this._state.contentPage.textForArea = action.newText;
+                this._callSubscriber(this._state);
+                break;
+
+            case 'CLICK':
+                let obj1 = {
+                    message: this._state.dialogsPage.newText
+                };
+
+                this._state.dialogsPage.MessageData.push(obj1);
+                this._state.dialogsPage.newText = '';
+                this._callSubscriber(this._state);
+                break;
+
+            case 'TEXT-UPDATE':
+                this._state.dialogsPage.newText = action.text;
+                this._callSubscriber(this._state);
+                break;
+        }
     }
 }
 

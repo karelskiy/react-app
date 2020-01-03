@@ -24,11 +24,12 @@ let anotherText = React.createRef();
 const Dialogs = (props) => {
 // ****************************
     const changeText = () => {
-        props.textUpdate(anotherText.current.value);
+        props.dispatch({type: 'TEXT-UPDATE', text: anotherText.current.value})
+        // textUpdate(anotherText.current.value);
     }
 
     const click = () => {
-        props.click();
+        props.dispatch({type: 'CLICK'})
     }
 // ****************************
 

@@ -6,7 +6,7 @@ function Content(props){
     return (
         <div className={classes.content}>
             <img src= 'https://pics.freeartbackgrounds.com/fullhd/Beach_Background-1001.jpg' />
-            <MyPosts text={props.text} updateText={props.updateText} addPosts={props.addPosts} postsData={props.postsData} />
+            <MyPosts dispatch={props.dispatch} text={props.text} postsData={props.postsData} />
         </div>
     )
 }

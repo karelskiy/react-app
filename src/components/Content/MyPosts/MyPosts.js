@@ -11,12 +11,14 @@ function MyPosts(props) {
     
     const addToState = () => {
         // let text = addNewElement.current.value;
-        props.addPosts();
+        props.dispatch({type: 'ADD-POSTS'});
         // props.updateText('');
     }
     const onTextChange = () => {
         // console.log(addNewElement.current.value);
-        props.updateText(addNewElement.current.value);
+        props.dispatch({type: 'UPDATE-TEXT', newText: addNewElement.current.value});
+        
+        // updateText(addNewElement.current.value);
     }
 
     return (

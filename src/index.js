@@ -10,7 +10,7 @@ import App from './App';
 
 
 const reRender = (state) => {
-    ReactDOM.render(<App state={state} click={store.click.bind(store)} addPosts={store.addPosts.bind(store)} updateText={store.updateText.bind(store)} textUpdate={store.textUpdate.bind(store)} />, document.getElementById('root'));
+    ReactDOM.render(<App state={state} dispatch={store.dispatch.bind(store)} />, document.getElementById('root'));
 }
 reRender(store.getState());
 
@@ -21,3 +21,4 @@ store.subscribe(reRender)
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
