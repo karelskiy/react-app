@@ -1,5 +1,5 @@
 // import state, { subscribe } from './redux/state'
-import store from './redux/state';
+import store from './redux/store';
 import * as serviceWorker from './serviceWorker';
 import React from 'react';
 import ReactDOM from 'react-dom';

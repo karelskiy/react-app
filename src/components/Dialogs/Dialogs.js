@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
 import { NavLink } from 'react-router-dom';
-import { textUpdateActionCreator, clickActionCreator } from '../../redux/state';
+import { textUpdateActionCreator, clickActionCreator } from '../../redux/dialogs-reducer';
 
 
 const DialogsItem = (props) => {
@@ -19,18 +19,14 @@ const Message = (props) => {
     )
 }
 
-let anotherText = React.createRef();
-
-
 const Dialogs = (props) => {
 // ****************************
-    const changeText = () => {
-        props.dispatch(textUpdateActionCreator(anotherText.current.value));
-        // textUpdate(anotherText.current.value);
-    }
-
     const click = () => {
-        props.dispatch(clickActionCreator());
+        props.dispatch(clickActionCreator())
+    };
+
+    const textUpdate = (event) => {
+        props.dispatch(textUpdateActionCreator(event.target.value))
     }
 // ****************************
 
@@ -45,8 +41,8 @@ const messages = props.messages.map( el => <Message message={el.message} />);
             <div className={classes.messages}>
                 {messages}
                 {/* ************** */}
-                <textarea ref={anotherText} onChange={changeText} value={props.textForDialogs}></textarea>
-                <button onClick={click}>send</button>
+                <div><textarea placeholder='Enter your message' onChange={textUpdate} value={props.newText}></textarea></div>
+                <div><button onClick={click}>send</button></div>
                 {/* ************** */}
             </div>
         </div>
@@ -56,3 +52,4 @@ const messages = props.messages.map( el => <Message message={el.message} />);
 
 
 export default Dialogs;
+
