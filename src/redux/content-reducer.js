@@ -1,7 +1,17 @@
 const ADD_POSTS = 'ADD-POSTS';
 const UPDATE_TEXT = 'UPDATE-TEXT';
 
-const contentReducer = (state, action) => {
+
+let initialState = {
+    PostsData: [
+        { likes: 23, id: 1, message: 'Hi, how you doing?' },
+        { likes: 17, id: 2, message: 'I have very bad day...' },
+        { likes: 6, id: 3, message: 'Sorry, but i`m late' }
+    ],
+    textForArea: 'some words'
+};
+
+const contentReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POSTS:
             let obj = {
