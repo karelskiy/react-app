@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
 import { NavLink } from 'react-router-dom';
-import { textUpdateActionCreator, clickActionCreator } from '../../redux/dialogs-reducer';
 
 
 const DialogsItem = (props) => {
@@ -22,11 +21,11 @@ const Message = (props) => {
 const Dialogs = (props) => {
 // ****************************
     const click = () => {
-        props.dispatch(clickActionCreator())
+        props.click();
     };
 
     const textUpdate = (event) => {
-        props.dispatch(textUpdateActionCreator(event.target.value))
+        props.textUpdate(event.target.value);
     }
 // ****************************
 

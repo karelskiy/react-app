@@ -1,18 +1,16 @@
 import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
-import { addPostsActionCreator, updateTextActionCreator } from '../../../redux/content-reducer';
 
 
 function MyPosts(props) {
-
-    const posts = props.postsData.map(el => <Post message={el.message} likes={el.likes} />);
+    const posts = props.posts.map(el => <Post message={el.message} likes={el.likes} />);
     
     const addToState = () => {
-        props.dispatch(addPostsActionCreator());
+        props.addPost();
     }
     const onTextChange = (event) => {
-        props.dispatch(updateTextActionCreator(event.target.value));
+        props.updateText(event.target.value)
     }
 
     return (

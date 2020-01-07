@@ -5,7 +5,7 @@ import Sidebar from './Sidebar/Sidebar'
 import { changeOurTextActionCreator, sayHiActionCreator } from '../../redux/sidebar-reducer';
 
 export let counter = 0;
-let textForResponse;
+export let textForResponse;
 
 
 function Nav(props) {
@@ -14,14 +14,14 @@ function Nav(props) {
 
     // **********************************
     const sayHi =() => {
-        props.dispatch(sayHiActionCreator(textForResponse))
+        props.sayHi(textForResponse);
         counter++;
         if(counter >= 3) counter = 0;
     }
 
     const changeOurText = (event) => {
         textForResponse = event.target.value;
-        props.dispatch(changeOurTextActionCreator(event.target.value))
+        props.changeOurText(event.target.value)
     }
 
     // **********************************
