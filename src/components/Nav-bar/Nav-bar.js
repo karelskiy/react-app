@@ -5,7 +5,7 @@ import Sidebar from './Sidebar/Sidebar'
 import { changeOurTextActionCreator, sayHiActionCreator } from '../../redux/sidebar-reducer';
 
 export let counter = 0;
-export let textForResponse;
+let textForResponse;
 
 
 function Nav(props) {

@@ -1,24 +1,36 @@
 import React from 'react';
 import { textUpdateActionCreator, clickActionCreator } from '../../redux/dialogs-reducer';
 import Dialogs from './Dialogs';
+import StoreContext from '../../StoreContext';
 
 
-const DialogsContainer = (props) => {
+const DialogsContainer = () => {
 
-    const click = () => {
-        props.store.dispatch(clickActionCreator())
-    };
+    return (
+        <StoreContext.Consumer >
+            {
+                (store) => {
 
-    const textUpdate = (text) => {
-        props.store.dispatch(textUpdateActionCreator(text))
-    }
+                    const click = () => {
+                        store.dispatch(clickActionCreator())
+                    };
 
-    return ( <Dialogs 
-                    dialogs={props.store.getState().dialogPage.DialogsData} 
-                    messages={props.store.getState().dialogPage.MessageData} 
-                    newText={props.store.getState().dialogPage.newText} 
-                    click={click} 
-                    textUpdate={textUpdate} /> )
+                    const textUpdate = (text) => {
+                        store.dispatch(textUpdateActionCreator(text))
+                    }
+
+                    return (
+                        <Dialogs
+                            dialogs={store.getState().dialogPage.DialogsData}
+                            messages={store.getState().dialogPage.MessageData}
+                            newText={store.getState().dialogPage.newText}
+                            click={click}
+                            textUpdate={textUpdate} />
+                    )
+                }
+            }
+        </StoreContext.Consumer>
+    )
 }
 
 

@@ -2,26 +2,33 @@ import React, { Component } from 'react';
 
 
 class Example extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            currentTime: (new Date()).toLocaleString()
-        }
-        this.launchClock();
+    
+    state = {
+        date: new Date()
+    };
+
+    tick = () => {
+        this.setState({
+            date: new Date()
+        })
     }
-    launchClock(){
-        setInterval(()=>{
-            this.setState({
-                currentTime: (new Date()).toLocaleString()
-            })
-        }, 1000)
+
+    componentDidMount(){
+        this.timer = setInterval( ()=>{
+            this.tick();
+        }, 1000);
     }
+
+    componentWillMount(){
+        clearInterval(this.timer);
+    }
+
     
 
     render() {
         return (
             <div>
-                <p>{this.state.currentTime}</p>
+                <p>{this.state.date.toLocaleTimeString()}</p>
             </div>
         )
     }
