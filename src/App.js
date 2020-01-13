@@ -24,8 +24,9 @@ function App(props) {
           <Route path='/music' component={Music} />
           <Route path='/settings' component={Settings} />
         </div>
-        {/* <Example /> */}
       </div>
+        // <Example />
+
   );
 }
 

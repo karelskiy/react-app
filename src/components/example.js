@@ -1,39 +1,43 @@
 import React, { Component } from 'react';
 
+function Warning(props){
+    if(!props.warn){
+        return null;
+    }
+
+    return (
+        <div>
+            <h1>Warning</h1>
+        </div>
+    )
+}
+
 
 class Example extends Component {
-    
-    state = {
-        date: new Date()
-    };
+    constructor(props){
+        super(props);
 
-    tick = () => {
+        this.state = {
+            showing: true
+        }
+
+        this.click = this.click.bind(this)
+    }
+
+    click(){
         this.setState({
-            date: new Date()
+            showing: !this.state.showing
         })
     }
 
-    componentDidMount(){
-        this.timer = setInterval( ()=>{
-            this.tick();
-        }, 1000);
-    }
-
-    componentWillMount(){
-        clearInterval(this.timer);
-    }
-
-    
-
-    render() {
+    render(){
         return (
             <div>
-                <p>{this.state.date.toLocaleTimeString()}</p>
+                <Warning warn={this.state.showing} />
+                <button onClick={this.click}>{this.state.showing? 'Скрыть' : 'Показать'}</button>
             </div>
         )
     }
-
-   
 }
 
 
