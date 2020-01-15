@@ -1,7 +1,5 @@
-import React from 'react';
 import { textUpdateActionCreator, clickActionCreator } from '../../redux/dialogs-reducer';
 import Dialogs from './Dialogs';
-import StoreContext from '../../StoreContext';
 import { connect } from 'react-redux';
 
 

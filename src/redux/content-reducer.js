@@ -13,25 +13,33 @@ let initialState = {
 
 const contentReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_POSTS:
+        case ADD_POSTS: {
             let obj = {
                 likes: 0,
                 id: 4,
                 message: state.textForArea,
-            }
-            state.PostsData.push(obj);
-            state.textForArea = '';
-            break;
+            };
+            return { 
+                ...state,
+                PostsData: [...state.PostsData, obj],
+                textForArea: ''
+            };
+        }
 
-        case UPDATE_TEXT:
-            state.textForArea = action.newText;
-            break;
+        case UPDATE_TEXT: {
+            return { 
+                ...state, 
+                textForArea: action.newText
+            };
+        }
+
+        default:
+            return state;
     }
-    return state;
 }
 
 export default contentReducer;
- 
+
 
 export const addPostsActionCreator = () => ({ type: ADD_POSTS });
 export const updateTextActionCreator = (text) => ({ type: UPDATE_TEXT, newText: text });

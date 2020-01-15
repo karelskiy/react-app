@@ -4,7 +4,7 @@ import Post from './Post/Post';
 
 
 function MyPosts(props) {
-    const posts = props.posts.map(el => <Post message={el.message} likes={el.likes} />);
+    const posts = props.posts.map(el => <Post key={el.id} message={el.message} likes={el.likes} />);
     
     const addToState = () => {
         props.addPost();

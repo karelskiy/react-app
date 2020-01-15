@@ -1,4 +1,3 @@
-import React from 'react';
 import { addPostsActionCreator, updateTextActionCreator } from '../../../redux/content-reducer';
 import MyPosts from './MyPosts';
 import { connect } from 'react-redux'
@@ -28,8 +27,10 @@ import { connect } from 'react-redux'
 // }
 
 let mapStateToProps = (state) => {
+
     return {
-        posts: state.contentPage.PostsData
+        posts: state.contentPage.PostsData,
+        text: state.contentPage.textForArea
     }
 }
 

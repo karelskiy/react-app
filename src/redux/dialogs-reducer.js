@@ -11,29 +11,36 @@ let initialState = {
         { id: 5, name: 'Marina' },
     ],
     MessageData: [
-        { message: 'Hi, how are you?)' },
-        { message: 'How much it cost?' },
-        { message: 'Sorry, but i can`t' },
+        { id:1, message: 'Hi, how are you?)' },
+        { id:2, message: 'How much it cost?' },
+        { id:3, message: 'Sorry, but i can`t' },
     ],
     newText: ''
 };
 
 const dialogReducer = (state = initialState, action) => {
     switch (action.type) {
-        case TEXT_UPDATE:
-            state.newText = action.newText;
-            break;
+        case TEXT_UPDATE: {
+            let copyState = { ...state }
+            copyState.newText = action.newText;
+            return copyState;
+        }
 
-        case CLICK:
-
+        case CLICK: {
+            let copyState = {...state }
             let obj1 = {
-                message: state.newText
+                message: state.newText,
+                id: 4
+
             };
-            state.MessageData.push(obj1);
-            state.newText = '';
-            break;
+            copyState.newText = '';
+            copyState.MessageData = [...state.MessageData, obj1];
+            return copyState;
+        }
+        
+        default:
+            return state;
     }
-    return state
 }
 
 

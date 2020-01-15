@@ -1,7 +1,5 @@
-import React from 'react';
 import { changeOurTextActionCreator, sayHiActionCreator } from '../../redux/sidebar-reducer';
 import Nav from './Nav-bar';
-import StoreContext from '../../StoreContext';
 import { connect } from 'react-redux';
 
 

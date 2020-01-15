@@ -2,7 +2,6 @@ import React from 'react';
 import classes from './Nav-bar.module.css';
 import { NavLink } from 'react-router-dom';
 import Sidebar from './Sidebar/Sidebar'
-import { changeOurTextActionCreator, sayHiActionCreator } from '../../redux/sidebar-reducer';
 
 export let counter = 0;
 let textForResponse;
@@ -10,7 +9,7 @@ let textForResponse;
 
 function Nav(props) {
 
-    const friends = props.friends.map(el => <Sidebar img={el.img} response={el.response}/>)
+    const friends = props.friends.map(el => <Sidebar key={el.id} img={el.img} response={el.response}/>)
 
     // **********************************
     const sayHi =() => {
@@ -32,7 +31,7 @@ function Nav(props) {
                 <ul>
                     <li className={`${classes.nav} ${classes.active}`}><NavLink activeClassName={classes.active} to='/profile'>Profile</NavLink></li>
                     <li><NavLink activeClassName={classes.active} to='/dialogs'>Dialogs</NavLink></li>
-                    <li><NavLink activeClassName={classes.active} to='/news'>News</NavLink></li>
+                    <li><NavLink activeClassName={classes.active} to='/find-users'>Find Users</NavLink></li>
                     <li><NavLink activeClassName={classes.active} to='/music'>Music</NavLink></li>
                     <li><NavLink activeClassName={classes.active} to='/settings'>Settings</NavLink></li>
                 </ul>
