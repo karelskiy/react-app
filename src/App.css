@@ -8,7 +8,7 @@ body{
   grid-template-areas: 'header header'
                        'nav content';
 
-  grid-template-rows: 1fr 7.38fr;
+  grid-template-rows: 1fr 589px;
   grid-template-columns: 210px 5fr;
   /* grid-gap: 10px; */
 }
@@ -16,5 +16,6 @@ body{
 .AppContents{
   grid-area: content;
   background-color: moccasin;
+  overflow-x: hidden;
 }
 

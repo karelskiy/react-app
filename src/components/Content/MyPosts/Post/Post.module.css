@@ -4,8 +4,8 @@
 }
 
 .span1{
-    position: absolute;
-    margin-top: 20px;
+    position: relative;
+    top: -16px;
     margin-left: 5px;
 }
 
