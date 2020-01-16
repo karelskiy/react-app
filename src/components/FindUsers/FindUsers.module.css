@@ -6,3 +6,20 @@
     height: 20px;
     border-radius: 10px solid black;;
 }
+
+.choosedPage{
+    font-weight: bold;
+}
+
+span{
+    margin: 0 2px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.pages{
+    margin-top: 10px;
+    text-align: center;
+    right: 12px;
+    position: relative;
+}

@@ -6,7 +6,6 @@ let Users = (props) => {
     
     let followFriends = (event) => {
         event.preventDefault();
-
         props.follow(props.id);
     }
 
