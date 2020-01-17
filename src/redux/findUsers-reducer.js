@@ -1,13 +1,11 @@
 const FOLLOW_FRIENDS = 'FOLLOW_FRIENDS';
 const LOAD_FRIENDS = 'LOAD_FRIENDS';
 const CLICK_ON_PAGE = 'CLICK_ON_PAGE';
+const LOADER = 'LOADER';
 
 let initiateState = {
     usersData: [],
-    pageSize: 4,
-    totalPageCount: 19,
-    choosedPage: 1
-
+    loaderState: false
 }
 let findUsersReducer = (state = initiateState, action) => {
     switch (action.type) {
@@ -38,6 +36,11 @@ let findUsersReducer = (state = initiateState, action) => {
                 ...state,
                 choosedPage: action.id
             };
+        case LOADER:
+            return{
+                ...state,
+                loaderState: action.loader
+            }
 
         default:
             return state;
@@ -46,7 +49,8 @@ let findUsersReducer = (state = initiateState, action) => {
 
 export const findUsersActionCreator = (id) => ({ type: FOLLOW_FRIENDS, id });
 export const loadFriendsActionCreator = (users) => ({ type: LOAD_FRIENDS, users });
-export const clickOnPageActionCreator = (id) => ({ type: CLICK_ON_PAGE, id })
+export const clickOnPageActionCreator = (id) => ({ type: CLICK_ON_PAGE, id });
+export const loaderActionCreator = (loader) => ({type:LOADER, loader})
 
 
 export default findUsersReducer
