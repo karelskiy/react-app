@@ -26,7 +26,7 @@ let findUsersReducer = (state = initiateState, action) => {
         case LOAD_FRIENDS:
             let counter = 1;
 
-            let stateCopy = { ...state, usersData: action.users };
+            let stateCopy = { ...state, usersData: [...state.usersData, ...action.users] };
             stateCopy.usersData.map((i) => {
                 i.id = counter;
                 counter++;

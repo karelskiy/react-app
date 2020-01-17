@@ -6,53 +6,52 @@ import classes from './FindUsers.module.css';
 
 
 class FindUsers extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     if (props.usersData.length === 0) {
-    //         this.handle();
-    //     }
-    //     this.handle = this.handle.bind(this);
+    constructor(props) {
+        super(props);
+        if(this.props.usersData.length === 0) {
+            axios.get(`https://randomuser.me/api/?results=4&inc=name,location,phone,picture,gender,email&nat=us`).then(response => {
+                this.props.loadFriends(response.data.results);
+            });
+        }
+        this.handle = this.handle.bind(this);
     //     this.clickOnPage = this.clickOnPage.bind(this)
-    // }
-    componentDidMount(){
-        axios.get(`https://randomuser.me/api/?results=${this.props.pageSize}&page=${this.props.choosedPage}&inc=name,location,phone,picture,gender,email&nat=us`).then(response => {
+    }
+
+   
+
+    handle() {
+        axios.get(`https://randomuser.me/api/?results=4&inc=name,location,phone,picture,gender,email&nat=us`).then(response => {
             this.props.loadFriends(response.data.results);
         });
     }
 
-    // handle() {
-    //     axios.get(`https://randomuser.me/api/?results=${this.props.pageSize}&page=${this.props.choosedPage}&inc=name,location,phone,picture,gender,email&nat=us`).then(response => {
+    // clickOnPage(i) {
+    //     this.props.clickOnPage(i);
+    //     axios.get(`https://randomuser.me/api/?results=${this.props.pageSize}&page=${i}&inc=name,location,phone,picture,gender,email&nat=us`).then(response => {
     //         this.props.loadFriends(response.data.results);
     //     });
     // }
 
-    clickOnPage(i) {
-        this.props.clickOnPage(i);
-        axios.get(`https://randomuser.me/api/?results=${this.props.pageSize}&page=${i}&inc=name,location,phone,picture,gender,email&nat=us`).then(response => {
-            this.props.loadFriends(response.data.results);
-        });
-    }
-
 
     render() {
         let users = this.props.usersData.map(el => (<Users follow={this.props.follow} id={el.id} key={el.id} status={el.gender} src={el.picture.large} name={el.name.first + ' ' + el.name.last} city={el.location.city} country={el.location.state} email={el.email} phone={el.phone} />))
-        let countPage = Math.ceil(this.props.totalPageCount / this.props.pageSize);
+        // let countPage = Math.ceil(this.props.totalPageCount / this.props.pageSize);
 
-        let arr = [];
-        for (let i = 1; i <= countPage; i++) {
-            arr.push(i)
-        }
+        // let arr = [];
+        // for (let i = 1; i <= countPage; i++) {
+        //     arr.push(i)
+        // }
 
         return (
             <div>
-                <div className={classes.pages}>
+                {/* <div className={classes.pages}>
                     {arr.map(i => {
                         return <span id={i} onClick={() => this.clickOnPage(i)} className={this.props.choosedPage === i && classes.choosedPage}>{i}</span>
                     })}
-                </div>
+                </div> */}
 
                 {users}
-                {/* <button onClick={this.handle} className={classes.loadButton}>Load</button> */}
+                <button onClick={this.handle} className={classes.loadButton}>Load</button>
             </div>
         )
     }
