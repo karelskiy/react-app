@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import FindUsers from './FindUsers';
-import { findUsersActionCreator, loadFriendsActionCreator, clickOnPageActionCreator, loaderActionCreator } from '../../redux/findUsers-reducer';
+import { findUsersActionCreator, loadFriendsActionCreator, clickOnPageActionCreator, loaderActionCreator, getCurrentApiActionCreator} from '../../redux/findUsers-reducer';
 import { Component } from 'react';
 import * as axios from 'axios';
 import React from 'react';
@@ -31,7 +31,8 @@ class findUsersAPIContainer extends Component {
             <FindUsers usersData={this.props.usersData}
                         follow={this.props.follow}
                         handle={this.handle}
-                        loader={this.props.loaderState}/>
+                        loader={this.props.loaderState}
+                        getCurrentApi={this.props.getCurrentApi}/>
         )
     }
 }
@@ -59,6 +60,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         loader(loader){
             dispatch(loaderActionCreator(loader))
+        },
+        getCurrentApi(api){
+            dispatch(getCurrentApiActionCreator(api))
         }
     }
 }

@@ -1,18 +1,26 @@
 import React from 'react';
 import classes from './Users.module.css';
+import { NavLink } from 'react-router-dom';
 
 
 let Users = (props) => {
-    
+
     let followFriends = (event) => {
         event.preventDefault();
         props.follow(props.id);
     }
+    let getCurrentApi = () => {
+        props.getCurrentApi(props.id);
+        
+    }
 
+    let name = props.name.split(' ').join('').toLowerCase()
     return (
         <div className={classes.container}>
             <div className={classes.firstPart}>
-                <img alt='' className={classes.avatar} src={props.src} />
+                <NavLink onClick={getCurrentApi} to={`profile/${name}`}>
+                    <img alt='' className={classes.avatar} src={props.src} />
+                </NavLink>
                 <a onClick={followFriends} href='/'>{props.status === 'female' ? 'Unfollow' : 'Follow'}</a>
             </div>
             <div className={classes.innerContainer}>

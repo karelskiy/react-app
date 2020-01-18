@@ -2,10 +2,13 @@ const FOLLOW_FRIENDS = 'FOLLOW_FRIENDS';
 const LOAD_FRIENDS = 'LOAD_FRIENDS';
 const CLICK_ON_PAGE = 'CLICK_ON_PAGE';
 const LOADER = 'LOADER';
+const CURRENT_API = 'CURRENT_API';
+const CLICK_ON_PROFILE = 'CLICK_ON_PROFILE';
 
 let initiateState = {
     usersData: [],
-    loaderState: false
+    loaderState: false,
+    currentPerson: {}
 }
 let findUsersReducer = (state = initiateState, action) => {
     switch (action.type) {
@@ -37,10 +40,18 @@ let findUsersReducer = (state = initiateState, action) => {
                 choosedPage: action.id
             };
         case LOADER:
-            return{
+            return {
                 ...state,
                 loaderState: action.loader
-            }
+            };
+
+        case CURRENT_API:
+            return { ...state, usersData: [...state.usersData], currentPerson: state.usersData[action.api - 1] };
+
+        case CLICK_ON_PROFILE: {
+            return {...state, currentPerson: {}}
+        }
+
 
         default:
             return state;
@@ -50,7 +61,9 @@ let findUsersReducer = (state = initiateState, action) => {
 export const findUsersActionCreator = (id) => ({ type: FOLLOW_FRIENDS, id });
 export const loadFriendsActionCreator = (users) => ({ type: LOAD_FRIENDS, users });
 export const clickOnPageActionCreator = (id) => ({ type: CLICK_ON_PAGE, id });
-export const loaderActionCreator = (loader) => ({type:LOADER, loader})
+export const loaderActionCreator = (loader) => ({ type: LOADER, loader });
 
+export const getCurrentApiActionCreator = (api) => ({ type: CURRENT_API, api });
+export const clickOnProfilePageActionCreator = () => ({ type: CLICK_ON_PROFILE });
 
 export default findUsersReducer

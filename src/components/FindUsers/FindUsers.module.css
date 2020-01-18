@@ -30,6 +30,10 @@ span{
     height: 50px;
 }
 
+.hiddenButton{
+  display: hidden
+}
+
 
 /* ********** */
 

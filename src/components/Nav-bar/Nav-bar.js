@@ -23,13 +23,17 @@ function Nav(props) {
         props.changeOurText(event.target.value)
     }
 
+    let clickOnPage = () => {
+        props.clickOnPage();
+    }
+
     // **********************************
 
     return (
         <div className={classes.nav}>
             <nav >
                 <ul>
-                    <li className={`${classes.nav} ${classes.active}`}><NavLink activeClassName={classes.active} to='/profile'>Profile</NavLink></li>
+                    <li className={`${classes.nav} ${classes.active}`}><NavLink onClick={clickOnPage} activeClassName={classes.active} to='/profile'>Profile</NavLink></li>
                     <li><NavLink activeClassName={classes.active} to='/dialogs'>Dialogs</NavLink></li>
                     <li><NavLink activeClassName={classes.active} to='/find-users'>Find Users</NavLink></li>
                     <li><NavLink activeClassName={classes.active} to='/music'>Music</NavLink></li>
