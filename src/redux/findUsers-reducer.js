@@ -1,4 +1,5 @@
 const FOLLOW_FRIENDS = 'FOLLOW_FRIENDS';
+const UNFOLLOW_FRIENDS = 'UNFOLLOW_FRIENDS'; 
 const LOAD_FRIENDS = 'LOAD_FRIENDS';
 const CLICK_ON_PAGE = 'CLICK_ON_PAGE';
 const LOADER = 'LOADER';
@@ -17,9 +18,16 @@ let findUsersReducer = (state = initiateState, action) => {
             let stateCopy = {
                 ...state, usersData: [...state.usersData]
             };
+            stateCopy.usersData[action.id - 1].followed = true;
 
-            if (stateCopy.usersData[action.id - 1].gender === 'male') stateCopy.usersData[action.id - 1].gender = 'female';
-            else stateCopy.usersData[action.id - 1].gender = 'male';
+            return stateCopy;
+        };
+
+        case UNFOLLOW_FRIENDS: {
+            let stateCopy = {
+                ...state, usersData: [...state.usersData]
+            };
+            stateCopy.usersData[action.id - 1].followed = false;
 
             return stateCopy;
         };
@@ -58,7 +66,8 @@ let findUsersReducer = (state = initiateState, action) => {
     }
 }
 
-export const findUsersActionCreator = (id) => ({ type: FOLLOW_FRIENDS, id });
+export const followFriendsActionCreator = (id) => ({ type: FOLLOW_FRIENDS, id });
+export const unfollowFriendsActionCreator= (id) => ({type: UNFOLLOW_FRIENDS, id })
 export const loadFriendsActionCreator = (users) => ({ type: LOAD_FRIENDS, users });
 export const clickOnPageActionCreator = (id) => ({ type: CLICK_ON_PAGE, id });
 export const loaderActionCreator = (loader) => ({ type: LOADER, loader });

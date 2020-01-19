@@ -4,8 +4,8 @@ import classes from './UsersProfile.module.css'
 let UsersProfile = (props) => {
     return (
         <div>
-            <img className={classes.avaImg} src={props.picture.large} />
-            <h3>{props.name.first + ' ' + props.name.last}</h3>
+            <img className={classes.avaImg} src={props.photos.large} />
+            <h3>{props.name}</h3>
         </div>
     )
 }

@@ -3,7 +3,7 @@ import Users from './Users/Users';
 import classes from './FindUsers.module.css';
 
 let FindUsers = (props) => {
-    let users = props.usersData.map(el => (<Users getCurrentApi={props.getCurrentApi} follow={props.follow} id={el.id} key={el.id} status={el.gender} src={el.picture.large} name={el.name.first + ' ' + el.name.last} city={el.location.city} country={el.location.state} email={el.email} phone={el.phone} />))
+    let users = props.usersData.map(el => (<Users getCurrentApi={props.getCurrentApi} unfollow={props.unfollow} follow={props.follow} id={el.id} key={el.id} status={el.followed} src={el.photos.large} name={el.name} />))
 
     return (
         <div>

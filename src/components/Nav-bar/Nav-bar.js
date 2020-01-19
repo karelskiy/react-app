@@ -7,7 +7,7 @@ export let counter = 0;
 let textForResponse;
 
 
-function Nav(props) {
+function  Nav(props) {
 
     const friends = props.friends.map(el => <Sidebar key={el.id} img={el.img} response={el.response}/>)
 

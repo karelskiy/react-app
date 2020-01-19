@@ -5,10 +5,18 @@ import { NavLink } from 'react-router-dom';
 
 let Users = (props) => {
 
+
     let followFriends = (event) => {
         event.preventDefault();
         props.follow(props.id);
     }
+
+    let unfollowFriends = (event) => {
+        event.preventDefault();
+        props.unfollow(props.id)
+    }
+
+
     let getCurrentApi = () => {
         props.getCurrentApi(props.id);
         
@@ -19,9 +27,9 @@ let Users = (props) => {
         <div className={classes.container}>
             <div className={classes.firstPart}>
                 <NavLink onClick={getCurrentApi} to={`profile/${name}`}>
-                    <img alt='' className={classes.avatar} src={props.src} />
+                    <img alt='' className={classes.avatar} src={!props.src ? 'https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg' : props.src} />
                 </NavLink>
-                <a onClick={followFriends} href='/'>{props.status === 'female' ? 'Unfollow' : 'Follow'}</a>
+                {props.status ? <a onClick={unfollowFriends}>unfollow</a> : <a onClick={followFriends}>follow</a>}
             </div>
             <div className={classes.innerContainer}>
                 <div>

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import FindUsers from './FindUsers';
-import { findUsersActionCreator, loadFriendsActionCreator, clickOnPageActionCreator, loaderActionCreator, getCurrentApiActionCreator} from '../../redux/findUsers-reducer';
+import { followFriendsActionCreator,unfollowFriendsActionCreator, loadFriendsActionCreator, clickOnPageActionCreator, loaderActionCreator, getCurrentApiActionCreator} from '../../redux/findUsers-reducer';
 import { Component } from 'react';
 import * as axios from 'axios';
 import React from 'react';
@@ -10,9 +10,9 @@ class findUsersAPIContainer extends Component {
         super(props);
         if (this.props.usersData.length === 0) {
             this.props.loader(true);
-            axios.get(`https://randomuser.me/api/?results=4&inc=name,location,phone,picture,gender,email&nat=us`).then(response => {
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users`).then(response => {
                 this.props.loader(false);
-                this.props.loadFriends(response.data.results);
+                this.props.loadFriends(response.data.items);
             });
         }
         this.handle = this.handle.bind(this);
@@ -20,7 +20,7 @@ class findUsersAPIContainer extends Component {
 
     handle() {
         this.props.loader(true);
-        axios.get(`https://randomuser.me/api/?results=4&inc=name,location,phone,picture,gender,email&nat=us`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users`).then(response => {
             this.props.loader(false);
             this.props.loadFriends(response.data.results);
         });
@@ -30,6 +30,7 @@ class findUsersAPIContainer extends Component {
         return (
             <FindUsers usersData={this.props.usersData}
                         follow={this.props.follow}
+                        unfollow={this.props.unfollow}
                         handle={this.handle}
                         loader={this.props.loaderState}
                         getCurrentApi={this.props.getCurrentApi}/>
@@ -50,7 +51,10 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         follow(id) {
-            dispatch(findUsersActionCreator(id))
+            dispatch(followFriendsActionCreator(id))
+        },
+        unfollow(id) {
+            dispatch(unfollowFriendsActionCreator(id))
         },
         loadFriends(users) {
             dispatch(loadFriendsActionCreator(users))
