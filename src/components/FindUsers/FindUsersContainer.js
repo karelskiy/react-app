@@ -1,39 +1,44 @@
 import { connect } from 'react-redux';
-import FindUsers from './FindUsers';
-import { followFriendsActionCreator,unfollowFriendsActionCreator, loadFriendsActionCreator, clickOnPageActionCreator, loaderActionCreator, getCurrentApiActionCreator} from '../../redux/findUsers-reducer';
+import { followFriendsActionCreator, unfollowFriendsActionCreator, loadFriendsActionCreator, clickOnPageActionCreator, loaderActionCreator, getCurrentApiActionCreator } from '../../redux/findUsers-reducer';
 import { Component } from 'react';
 import * as axios from 'axios';
 import React from 'react';
+import FindUsers from './FindUsers';
+
 
 class findUsersAPIContainer extends Component {
-    constructor(props) {
-        super(props);
+    componentDidMount() {
         if (this.props.usersData.length === 0) {
             this.props.loader(true);
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users`).then(response => {
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users/?count=${this.props.pageSize}&page=${this.props.currentPage}`).then(response => {
                 this.props.loader(false);
                 this.props.loadFriends(response.data.items);
             });
         }
-        this.handle = this.handle.bind(this);
     }
 
-    handle() {
+    clickOnPage = (i) => {
+        this.props.clickOnPage(i);
         this.props.loader(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users/?count=${this.props.pageSize}&page=${i}`).then(response => {
             this.props.loader(false);
-            this.props.loadFriends(response.data.results);
+            this.props.loadFriends(response.data.items);
         });
     }
 
-    render() {  
+    render() {
         return (
             <FindUsers usersData={this.props.usersData}
-                        follow={this.props.follow}
-                        unfollow={this.props.unfollow}
-                        handle={this.handle}
-                        loader={this.props.loaderState}
-                        getCurrentApi={this.props.getCurrentApi}/>
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
+                loader={this.props.loaderState}
+                getCurrentApi={this.props.getCurrentApi}
+                totalCountPerson={this.props.totalCountPerson}
+                pageSize={this.props.pageSize}
+                currentPage={this.props.currentPage}
+                clickOnPage={this.clickOnPage}
+                loadFriends={this.props.loadFriends}
+                />
         )
     }
 }
@@ -41,10 +46,11 @@ class findUsersAPIContainer extends Component {
 let mapStateToProps = (state) => {
     return {
         usersData: state.findUsersPage.usersData,
+        loaderState: state.findUsersPage.loaderState,
+        currentPage: state.findUsersPage.currentPage,
         pageSize: state.findUsersPage.pageSize,
-        totalPageCount: state.findUsersPage.totalPageCount,
-        choosedPage: state.findUsersPage.choosedPage,
-        loaderState: state.findUsersPage.loaderState
+        totalCountPerson: state.findUsersPage.totalCountPerson
+
     }
 }
 
@@ -62,10 +68,10 @@ let mapDispatchToProps = (dispatch) => {
         clickOnPage(id) {
             dispatch(clickOnPageActionCreator(id))
         },
-        loader(loader){
+        loader(loader) {
             dispatch(loaderActionCreator(loader))
         },
-        getCurrentApi(api){
+        getCurrentApi(api) {
             dispatch(getCurrentApiActionCreator(api))
         }
     }

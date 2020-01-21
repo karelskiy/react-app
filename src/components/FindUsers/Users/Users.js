@@ -17,16 +17,11 @@ let Users = (props) => {
     }
 
 
-    let getCurrentApi = () => {
-        props.getCurrentApi(props.id);
-        
-    }
-
     let name = props.name.split(' ').join('').toLowerCase()
     return (
         <div className={classes.container}>
             <div className={classes.firstPart}>
-                <NavLink onClick={getCurrentApi} to={`profile/${name}`}>
+                <NavLink to={`profile/${props.id}`}>
                     <img alt='' className={classes.avatar} src={!props.src ? 'https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg' : props.src} />
                 </NavLink>
                 {props.status ? <a onClick={unfollowFriends}>unfollow</a> : <a onClick={followFriends}>follow</a>}

@@ -9,6 +9,9 @@ const CLICK_ON_PROFILE = 'CLICK_ON_PROFILE';
 let initiateState = {
     usersData: [],
     loaderState: false,
+    currentPage: 1,
+    pageSize: 4,
+    totalCountPerson: 20,
     currentPerson: {}
 }
 let findUsersReducer = (state = initiateState, action) => {
@@ -33,32 +36,20 @@ let findUsersReducer = (state = initiateState, action) => {
         };
 
         case LOAD_FRIENDS:
-            let counter = 1;
 
-            let stateCopy = { ...state, usersData: [...state.usersData, ...action.users] };
-            stateCopy.usersData.map((i) => {
-                i.id = counter;
-                counter++;
-            })
-            return stateCopy;
+           return { ...state, usersData: action.users };
+           ;
 
         case CLICK_ON_PAGE:
             return {
                 ...state,
-                choosedPage: action.id
+                currentPage: action.id
             };
         case LOADER:
             return {
                 ...state,
                 loaderState: action.loader
             };
-
-        case CURRENT_API:
-            return { ...state, usersData: [...state.usersData], currentPerson: state.usersData[action.api - 1] };
-
-        case CLICK_ON_PROFILE: {
-            return {...state, currentPerson: {}}
-        }
 
 
         default:
