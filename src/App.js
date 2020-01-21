@@ -16,7 +16,7 @@ function App() {
         <Header />
         <NavContainer />
         <div className='AppContents'>
-          <Route path='/profile' render={() => <ContentContainer />} />
+          <Route path='/profile/:userId?' render={() => <ContentContainer />} />
           <Route path='/dialogs' render={() => <DialogsContainer /> }/>
           <Route path='/find-users' render={() => <FindUsersContainer /> } />
           <Route path='/music' component={Music} />

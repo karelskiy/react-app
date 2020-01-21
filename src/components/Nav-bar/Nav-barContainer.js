@@ -1,5 +1,4 @@
 import { changeOurTextActionCreator, sayHiActionCreator } from '../../redux/sidebar-reducer';
-import { clickOnProfilePageActionCreator } from '../../redux/findUsers-reducer'
 import Nav from './Nav-bar';
 import { connect } from 'react-redux';
 
@@ -18,9 +17,6 @@ let mapDispatchToProps = (dispatch) => {
         changeOurText(text){
             dispatch(changeOurTextActionCreator(text))
         },
-        clickOnPage(){
-            dispatch(clickOnProfilePageActionCreator())
-        }
     }
 }
 

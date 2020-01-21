@@ -3,12 +3,13 @@ import React, { Component } from 'react'
 import * as axios from 'axios'
 import { connect } from 'react-redux';
 import { loadProfileActionCreator } from '../../redux/content-reducer';
+import { withRouter } from 'react-router-dom';
 
 class ContentContainer extends Component {
     
     componentDidMount() {
         // this.props.loader(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${!this.props.match.params.userId ? 2 : this.props.match.params.userId}`).then(response => {
             console.log(response.data)
             // this.props.loader(false);
             this.props.loadProfile(response.data);
@@ -39,4 +40,5 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContentContainer)
+let withURLRouterContentContainer = withRouter(ContentContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(withURLRouterContentContainer)

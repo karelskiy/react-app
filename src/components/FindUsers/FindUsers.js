@@ -4,7 +4,7 @@ import classes from './FindUsers.module.css';
 import Preloader from '../Preloader/Preloader';
 
 let FindUsers = (props) => {
-    let users = props.usersData.map(el => (<Users getCurrentApi={props.getCurrentApi} unfollow={props.unfollow} follow={props.follow} id={el.id} key={el.id} status={el.followed} src={el.photos.large} name={el.name} />))
+    let users = props.usersData.map(el => (<Users unfollow={props.unfollow} follow={props.follow} id={el.id} key={el.id} status={el.followed} src={el.photos.large} name={el.name} />))
     let pages = Math.ceil(props.totalCountPerson / props.pageSize);
     let arrPages = [];
     
