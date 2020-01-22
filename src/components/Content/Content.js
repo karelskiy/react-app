@@ -5,7 +5,6 @@ import UsersProfile from './UsersProfile/UsersProfile';
 import Preloader from '../Preloader/Preloader';
 
 function Content(props){
-    debugger;
     if(!props.currentProfile){
         return <Preloader />
     }

@@ -10,7 +10,9 @@ class findUsersAPIContainer extends Component {
     componentDidMount() {
         if (this.props.usersData.length === 0) {
             this.props.loader(true);
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users/?count=${this.props.pageSize}&page=${this.props.currentPage}`).then(response => {
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users/?count=${this.props.pageSize}&page=${this.props.currentPage}`,{
+                withCredentials: true
+            }).then(response => {
                 this.props.loader(false);
                 this.props.loadFriends(response.data.items);
             });
@@ -20,7 +22,9 @@ class findUsersAPIContainer extends Component {
     clickOnPage = (i) => {
         this.props.clickOnPage(i);
         this.props.loader(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users/?count=${this.props.pageSize}&page=${i}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users/?count=${this.props.pageSize}&page=${i}`,{
+            withCredentials:true
+        }).then(response => {
             this.props.loader(false);
             this.props.loadFriends(response.data.items);
         });
@@ -37,6 +41,7 @@ class findUsersAPIContainer extends Component {
                 currentPage={this.props.currentPage}
                 clickOnPage={this.clickOnPage}
                 loadFriends={this.props.loadFriends}
+                preloader={this.props.loader}
                 />
         )
     }

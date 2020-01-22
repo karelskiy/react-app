@@ -9,11 +9,9 @@
     width: 80px;
     height: 40px;
   }
+
   
-  .header h1{
-    text-transform: uppercase;
-  }
-  
-  .item{
-      color: white;
+  .login{
+    float: right;
+    color: white;
   }

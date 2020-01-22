@@ -1,5 +1,5 @@
 const FOLLOW_FRIENDS = 'FOLLOW_FRIENDS';
-const UNFOLLOW_FRIENDS = 'UNFOLLOW_FRIENDS'; 
+const UNFOLLOW_FRIENDS = 'UNFOLLOW_FRIENDS';
 const LOAD_FRIENDS = 'LOAD_FRIENDS';
 const CLICK_ON_PAGE = 'CLICK_ON_PAGE';
 const LOADER = 'LOADER';
@@ -16,26 +16,35 @@ let findUsersReducer = (state = initiateState, action) => {
 
         case FOLLOW_FRIENDS: {
             let stateCopy = {
-                ...state, usersData: [...state.usersData]
+                ...state, usersData: state.usersData.map(i => {
+                    if (i.id === action.id){
+                        return {...i,followed: true}
+                    }
+                    return i
+                })
             };
-            stateCopy.usersData[action.id - 1].followed = true;
+
 
             return stateCopy;
         };
 
         case UNFOLLOW_FRIENDS: {
             let stateCopy = {
-                ...state, usersData: [...state.usersData]
+                ...state, usersData: state.usersData.map(i => {
+                    if (i.id === action.id){
+                        return {...i,followed: false}
+                    }
+                    return i
+                })
             };
-            stateCopy.usersData[action.id - 1].followed = false;
 
             return stateCopy;
-        };
+            };
 
         case LOAD_FRIENDS:
 
-           return { ...state, usersData: action.users };
-           ;
+            return { ...state, usersData: action.users };
+            ;
 
         case CLICK_ON_PAGE:
             return {
@@ -55,7 +64,7 @@ let findUsersReducer = (state = initiateState, action) => {
 }
 
 export const followFriendsActionCreator = (id) => ({ type: FOLLOW_FRIENDS, id });
-export const unfollowFriendsActionCreator= (id) => ({type: UNFOLLOW_FRIENDS, id })
+export const unfollowFriendsActionCreator = (id) => ({ type: UNFOLLOW_FRIENDS, id })
 export const loadFriendsActionCreator = (users) => ({ type: LOAD_FRIENDS, users });
 export const clickOnPageActionCreator = (id) => ({ type: CLICK_ON_PAGE, id });
 export const loaderActionCreator = (loader) => ({ type: LOADER, loader });
