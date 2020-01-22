@@ -10,7 +10,6 @@ class ContentContainer extends Component {
     componentDidMount() {
         // this.props.loader(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${!this.props.match.params.userId ? 2 : this.props.match.params.userId}`).then(response => {
-            console.log(response.data)
             // this.props.loader(false);
             this.props.loadProfile(response.data);
         });

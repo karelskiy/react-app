@@ -1,20 +1,18 @@
 import { connect } from 'react-redux';
 import { followFriendsActionCreator, unfollowFriendsActionCreator, loadFriendsActionCreator, clickOnPageActionCreator, loaderActionCreator } from '../../redux/findUsers-reducer';
 import { Component } from 'react';
-import * as axios from 'axios';
 import React from 'react';
 import FindUsers from './FindUsers';
+import { userAPI } from '../../axios/api';
 
 
 class findUsersAPIContainer extends Component {
     componentDidMount() {
         if (this.props.usersData.length === 0) {
             this.props.loader(true);
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users/?count=${this.props.pageSize}&page=${this.props.currentPage}`,{
-                withCredentials: true
-            }).then(response => {
+            userAPI.getUsers(this.props.pageSize, this.props.currentPage).then(response => {
                 this.props.loader(false);
-                this.props.loadFriends(response.data.items);
+                this.props.loadFriends(response.items);
             });
         }
     }
@@ -22,11 +20,9 @@ class findUsersAPIContainer extends Component {
     clickOnPage = (i) => {
         this.props.clickOnPage(i);
         this.props.loader(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users/?count=${this.props.pageSize}&page=${i}`,{
-            withCredentials:true
-        }).then(response => {
+        userAPI.getUsers(this.props.pageSize, i).then(response => {
             this.props.loader(false);
-            this.props.loadFriends(response.data.items);
+            this.props.loadFriends(response.items);
         });
     }
 
@@ -42,7 +38,7 @@ class findUsersAPIContainer extends Component {
                 clickOnPage={this.clickOnPage}
                 loadFriends={this.props.loadFriends}
                 preloader={this.props.loader}
-                />
+            />
         )
     }
 }
