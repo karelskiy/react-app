@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { followFriendsActionCreator, unfollowFriendsActionCreator, loadFriendsActionCreator, clickOnPageActionCreator, loaderActionCreator } from '../../redux/findUsers-reducer';
+import { isToggleActionCreator, followFriendsActionCreator, unfollowFriendsActionCreator, loadFriendsActionCreator, clickOnPageActionCreator, loaderActionCreator } from '../../redux/findUsers-reducer';
 import { Component } from 'react';
 import React from 'react';
 import FindUsers from './FindUsers';
@@ -38,6 +38,8 @@ class findUsersAPIContainer extends Component {
                 clickOnPage={this.clickOnPage}
                 loadFriends={this.props.loadFriends}
                 preloader={this.props.loader}
+                toggleButton={this.props.toggleButton}
+                arrToggles={this.props.arrToggles}
             />
         )
     }
@@ -49,7 +51,8 @@ let mapStateToProps = (state) => {
         loaderState: state.findUsersPage.loaderState,
         currentPage: state.findUsersPage.currentPage,
         pageSize: state.findUsersPage.pageSize,
-        totalCountPerson: state.findUsersPage.totalCountPerson
+        totalCountPerson: state.findUsersPage.totalCountPerson,
+        arrToggles: state.findUsersPage.arrToggles
 
     }
 }
@@ -71,6 +74,9 @@ let mapDispatchToProps = (dispatch) => {
         loader(loader) {
             dispatch(loaderActionCreator(loader))
         },
+        toggleButton(state, id){
+            dispatch(isToggleActionCreator(state, id))
+        }
 
     }
 }

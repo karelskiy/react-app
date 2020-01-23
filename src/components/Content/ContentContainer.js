@@ -13,7 +13,9 @@ class ContentContainer extends Component {
             // this.props.loader(false);
             this.props.loadProfile(response.data);
         });
+        
     }
+
 
     render() {
         return (

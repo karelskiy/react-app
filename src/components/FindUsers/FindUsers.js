@@ -4,7 +4,7 @@ import classes from './FindUsers.module.css';
 import Preloader from '../Preloader/Preloader';
 
 let FindUsers = (props) => {
-    let users = props.usersData.map(el => (<Users preloader={props.preloader} unfollow={props.unfollow} follow={props.follow} id={el.id} key={el.id} status={el.followed} src={el.photos.large} name={el.name} />))
+    let users = props.usersData.map(el => (<Users arrToggles={props.arrToggles} toggleButton={props.toggleButton} preloader={props.preloader} unfollow={props.unfollow} follow={props.follow} id={el.id} key={el.id} status={el.followed} src={el.photos.large} name={el.name} />))
     let pages = Math.ceil(props.totalCountPerson / props.pageSize);
     let arrPages = [];
     
@@ -17,7 +17,7 @@ let FindUsers = (props) => {
         <div>
             {props.loader ? <Preloader /> : null}
             {arrPages.map(i => {
-                return <span onClick={()=> props.clickOnPage(i)} className={props.currentPage === i ? classes.choosedPage : null}>{i}</span>
+                return <span key={i} onClick={()=> props.clickOnPage(i)} className={props.currentPage === i ? classes.choosedPage : null}>{i}</span>
             })}
             {users}
         </div>

@@ -14,10 +14,16 @@ export let userAPI = {
         return instance.get(`users/?count=${pageSize}&page=${currentPage}`)
             .then(response => response.data)
     },
+
     follow(id){
+        return instance.post(`follow/${id}`)
+    },
+    
+    unfollow(id){
         return instance.delete(`follow/${id}`)
     },
-    unfollow(id){
-        return instance.post(`follow/${id}`)
+
+    getAuth(){
+        return instance.get(`auth/me`)
     }
 }

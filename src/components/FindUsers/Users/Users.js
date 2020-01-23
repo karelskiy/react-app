@@ -7,10 +7,13 @@ import { userAPI } from '../../../axios/api';
 let Users = (props) => {
 
     let follow = (id) => {
-        props.preloader(true)
-        userAPI.follow(props.id).then(response => {
-            if (response.resultCode === 0) {
+        props.preloader(true);
+        props.toggleButton(true, id);
+        userAPI.follow(id).then(response => {
+
+            if (response.data.resultCode === 0) {
                 props.preloader(false)
+                props.toggleButton(false);
                 props.follow(id)
             }
 
@@ -18,10 +21,13 @@ let Users = (props) => {
     }
 
     let unfollow = (id) => {
-        props.preloader(true)
-        userAPI.unfollow(props.id).then(response => {
-            if (response.resultCode === 0) {
+        props.preloader(true);
+        props.toggleButton(true, id);
+        userAPI.unfollow(id).then(response => {
+
+            if (response.data.resultCode === 0) {
                 props.preloader(false)
+                props.toggleButton(false, id); 
                 props.unfollow(id)
 
             }
@@ -35,7 +41,7 @@ let Users = (props) => {
                     <img alt='' className={classes.avatar} src={!props.src ? 'https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg' : props.src} />
                 </NavLink>
                 {props.status ?
-                    <a onClick={() => unfollow(props.id)}>unfollow</a> : <a onClick={() => follow(props.id)}>follow</a>}
+                    <button disabled={props.arrToggles.some(i=> i === props.id)} onClick={() => unfollow(props.id)}>unfollow</button> : <button disabled={props.arrToggles.some(i=> i === props.id)} onClick={() => follow(props.id)}>follow</button>}
             </div>
             <div className={classes.innerContainer}>
                 <div>
