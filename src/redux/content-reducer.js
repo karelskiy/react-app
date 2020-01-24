@@ -1,3 +1,5 @@
+import { userAPI } from "../axios/api";
+
 const ADD_POSTS = 'ADD-POSTS';
 const UPDATE_TEXT = 'UPDATE-TEXT';
 const CURRENT_PROFILE = 'CURRENT_PROFILE';
@@ -21,7 +23,7 @@ const contentReducer = (state = initialState, action) => {
                 id: 4,
                 message: state.textForArea,
             };
-            return { 
+            return {
                 ...state,
                 PostsData: [...state.PostsData, obj],
                 textForArea: ''
@@ -29,8 +31,8 @@ const contentReducer = (state = initialState, action) => {
         }
 
         case UPDATE_TEXT: {
-            return { 
-                ...state, 
+            return {
+                ...state,
                 textForArea: action.newText
             };
         }
@@ -50,5 +52,13 @@ export default contentReducer;
 
 export const addPostsActionCreator = () => ({ type: ADD_POSTS });
 export const updateTextActionCreator = (text) => ({ type: UPDATE_TEXT, newText: text });
+export const loadProfileActionCreator = (data) => ({ type: CURRENT_PROFILE, data });
 
-export const loadProfileActionCreator = (data) => ({type: CURRENT_PROFILE, data})
+export const getProfileThunkCreator = userId => {
+    return dispatch => {
+        userAPI.getProfileFromURL(userId)
+            .then(response => {
+                dispatch(loadProfileActionCreator(response.data));
+            });
+    }
+}

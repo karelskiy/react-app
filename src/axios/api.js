@@ -25,5 +25,9 @@ export let userAPI = {
 
     getAuth(){
         return instance.get(`auth/me`)
+    },
+
+    getProfileFromURL(userIdFromURL){
+        return instance.get(`profile/${userIdFromURL}`)
     }
 }

@@ -1,17 +1,11 @@
 import React, { Component } from 'react'
 import Header from './Header';
 import { connect } from 'react-redux';
-import { setUserDataActionCreator } from '../../redux/auth-reducer';
-import { userAPI } from '../../axios/api';
+import { isLoginThunkCreator } from '../../redux/auth-reducer';
 
 class HeaderContainer extends Component {
     componentDidMount() {
-        userAPI.getAuth().then(response => {
-            if (response.data.resultCode === 0) {
-                let { id, login, email } = response.data.data;
-                this.props.setUserData(id, login, email)
-            }
-        });
+        this.props.isLogin()
     }
 
     render() {
@@ -30,8 +24,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        setUserData(...data) {
-            dispatch(setUserDataActionCreator(...data))
+        isLogin(){
+            dispatch(isLoginThunkCreator())
         }
     }
 }

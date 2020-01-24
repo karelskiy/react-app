@@ -1,37 +1,16 @@
 import React from 'react';
 import classes from './Users.module.css';
 import { NavLink } from 'react-router-dom';
-import { userAPI } from '../../../axios/api';
 
 
 let Users = (props) => {
 
     let follow = (id) => {
-        props.preloader(true);
-        props.toggleButton(true, id);
-        userAPI.follow(id).then(response => {
-
-            if (response.data.resultCode === 0) {
-                props.preloader(false)
-                props.toggleButton(false);
-                props.follow(id)
-            }
-
-        })
+        props.isFollow(id)
     }
 
     let unfollow = (id) => {
-        props.preloader(true);
-        props.toggleButton(true, id);
-        userAPI.unfollow(id).then(response => {
-
-            if (response.data.resultCode === 0) {
-                props.preloader(false)
-                props.toggleButton(false, id); 
-                props.unfollow(id)
-
-            }
-        })
+       props.isUnfollow(id)
     }
 
     return (
