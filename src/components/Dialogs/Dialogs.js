@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 
 const DialogsItem = (props) => {
@@ -31,6 +31,8 @@ const Dialogs = (props) => {
 
 const dialogs = props.dialogs.map( el => <DialogsItem id={el.id} key={el.id} name={el.name} />);
 const messages = props.messages.map( el => <Message message={el.message} key={el.id} />);
+
+    if(!props.isAuth) return <Redirect to='/login' />
 
     return (
         <div className={classes.container}>

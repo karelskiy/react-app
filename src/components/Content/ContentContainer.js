@@ -2,7 +2,7 @@ import Content from './Content'
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getProfileThunkCreator } from '../../redux/content-reducer';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 class ContentContainer extends Component {
 
@@ -11,6 +11,7 @@ class ContentContainer extends Component {
     }
 
     render() {
+        if(!this.props.isAuth) return <Redirect to='/login' />
         return (
             <div>
                 <Content {...this.props} currentProfile={this.props.currentProfile} />
@@ -21,7 +22,8 @@ class ContentContainer extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        currentProfile: state.contentPage.currentProfile
+        currentProfile: state.contentPage.currentProfile,
+        isAuth: state.auth.isAuth
     }
 }
 

@@ -8,6 +8,7 @@ import NavContainer from './components/Nav-bar/Nav-barContainer';
 import FindUsersContainer from './components/FindUsers/FindUsersContainer';
 import ContentContainer from './components/Content/ContentContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/Login/Login';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path='/profile/:userId?' render={() => <ContentContainer />} />
           <Route path='/dialogs' render={() => <DialogsContainer /> }/>
           <Route path='/find-users' render={() => <FindUsersContainer /> } />
+          <Route path='/login' render={() => <Login /> } />
           <Route path='/music' component={Music} />
           <Route path='/settings' component={Settings} />
         </div>
