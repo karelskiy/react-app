@@ -3,6 +3,7 @@ import { clickOnPageActionCreator, getUsersThunkCreator, isFollowThunkCreator, i
 import { Component } from 'react';
 import React from 'react';
 import FindUsers from './FindUsers';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 
 class findUsersAPIContainer extends Component {
@@ -68,5 +69,7 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-let FindUsersContainer = connect(mapStateToProps, mapDispatchToProps)(findUsersAPIContainer)
+let AuthRedirectComponent = withAuthRedirect(findUsersAPIContainer)
+
+let FindUsersContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
 export default FindUsersContainer

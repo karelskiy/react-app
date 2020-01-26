@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getProfileThunkCreator } from '../../redux/content-reducer';
 import { withRouter, Redirect } from 'react-router-dom';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 class ContentContainer extends Component {
 
@@ -23,7 +24,6 @@ class ContentContainer extends Component {
 let mapStateToProps = (state) => {
     return {
         currentProfile: state.contentPage.currentProfile,
-        isAuth: state.auth.isAuth
     }
 }
 
@@ -36,5 +36,7 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-let withURLRouterContentContainer = withRouter(ContentContainer)
+let AuthRedirectComponent = withAuthRedirect(ContentContainer);
+
+let withURLRouterContentContainer = withRouter(AuthRedirectComponent)
 export default connect(mapStateToProps, mapDispatchToProps)(withURLRouterContentContainer)

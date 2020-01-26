@@ -102,7 +102,6 @@ export const isFollowThunkCreator = id => {
                 dispatch(isToggleActionCreator(false, id));
                 dispatch(followFriendsActionCreator(id))
             }
-
         })
     }
 }
@@ -117,7 +116,6 @@ export const isUnfollowThunkCreator = id => {
                 dispatch(isToggleActionCreator(false, id));
                 dispatch(unfollowFriendsActionCreator(id))
             }
-
         })
     }
 }
