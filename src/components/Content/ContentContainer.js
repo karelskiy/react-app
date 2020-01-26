@@ -2,8 +2,7 @@ import Content from './Content'
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getProfileThunkCreator } from '../../redux/content-reducer';
-import { withRouter, Redirect } from 'react-router-dom';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
 class ContentContainer extends Component {
@@ -13,7 +12,6 @@ class ContentContainer extends Component {
     }
 
     render() {
-        if (!this.props.isAuth) return <Redirect to='/login' />
         return (
             <div>
                 <Content {...this.props} currentProfile={this.props.currentProfile} />
@@ -44,4 +42,4 @@ let mapDispatchToProps = (dispatch) => {
 // let withURLRouterContentContainer = withRouter(AuthRedirectComponent)
 // export default connect(mapStateToProps, mapDispatchToProps)(withURLRouterContentContainer)
 
-export default compose(connect(mapStateToProps, mapDispatchToProps), withRouter, withAuthRedirect)(ContentContainer)
+export default compose(connect(mapStateToProps, mapDispatchToProps), withRouter)(ContentContainer)

@@ -29,5 +29,5 @@ export let userAPI = {
 
     getProfileFromURL(userIdFromURL){
         return instance.get(`profile/${userIdFromURL}`)
-    }
+    },
 }

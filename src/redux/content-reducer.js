@@ -12,7 +12,7 @@ let initialState = {
         { likes: 6, id: 3, message: 'Sorry, but i`m late' }
     ],
     textForArea: 'some words',
-    currentProfile: null
+    currentProfile: null,
 };
 
 const contentReducer = (state = initialState, action) => {
@@ -40,7 +40,9 @@ const contentReducer = (state = initialState, action) => {
         case CURRENT_PROFILE:
             return {
                 ...state, currentProfile: action.data
-            }
+            };
+
+
 
         default:
             return state;
@@ -54,6 +56,7 @@ export const addPostsActionCreator = () => ({ type: ADD_POSTS });
 export const updateTextActionCreator = (text) => ({ type: UPDATE_TEXT, newText: text });
 export const loadProfileActionCreator = (data) => ({ type: CURRENT_PROFILE, data });
 
+
 export const getProfileThunkCreator = userId => {
     return dispatch => {
         userAPI.getProfileFromURL(userId)
@@ -62,3 +65,4 @@ export const getProfileThunkCreator = userId => {
             });
     }
 }
+
