@@ -4,6 +4,7 @@ import { Component } from 'react';
 import React from 'react';
 import FindUsers from './FindUsers';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 
 class findUsersAPIContainer extends Component {
@@ -69,7 +70,5 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-let AuthRedirectComponent = withAuthRedirect(findUsersAPIContainer)
+export default compose(connect(mapStateToProps, mapDispatchToProps),withAuthRedirect)(findUsersAPIContainer)
 
-let FindUsersContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
-export default FindUsersContainer
