@@ -1,20 +1,22 @@
 import Content from './Content'
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { getProfileThunkCreator } from '../../redux/content-reducer';
+import { getProfileThunkCreator, getStatusThunkCreator, setStatusThunkCreator } from '../../redux/content-reducer';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
 class ContentContainer extends Component {
 
     componentDidMount() {
-        this.props.getProfile(!this.props.match.params.userId ? 2 : this.props.match.params.userId)
+        this.props.getProfile(!this.props.match.params.userId ? 5732 : this.props.match.params.userId);
+        this.props.getStatus(!this.props.match.params.userId ? 5732 : this.props.match.params.userId)
     }
+
 
     render() {
         return (
             <div>
-                <Content {...this.props} currentProfile={this.props.currentProfile} />
+                <Content {...this.props} id={this.props.match.params.userId} currentProfile={this.props.currentProfile} status={this.props.status} setStatus={this.props.setStatus} />
             </div>
         )
     }
@@ -23,6 +25,8 @@ class ContentContainer extends Component {
 let mapStateToProps = (state) => {
     return {
         currentProfile: state.contentPage.currentProfile,
+        status: state.contentPage.status,
+
     }
 }
 
@@ -31,7 +35,14 @@ let mapDispatchToProps = (dispatch) => {
     return {
         getProfile(userId) {
             dispatch(getProfileThunkCreator(userId))
-        }
+        },
+        getStatus(id){
+            dispatch(getStatusThunkCreator(id))
+        },
+        setStatus(status){
+            dispatch(setStatusThunkCreator(status))
+        },
+        
     }
 }
 

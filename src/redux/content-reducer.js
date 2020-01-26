@@ -3,7 +3,7 @@ import { userAPI } from "../axios/api";
 const ADD_POSTS = 'ADD-POSTS';
 const UPDATE_TEXT = 'UPDATE-TEXT';
 const CURRENT_PROFILE = 'CURRENT_PROFILE';
-
+const GET_STATUS = 'GET_STATUS';
 
 let initialState = {
     PostsData: [
@@ -13,6 +13,7 @@ let initialState = {
     ],
     textForArea: 'some words',
     currentProfile: null,
+    status: '',
 };
 
 const contentReducer = (state = initialState, action) => {
@@ -42,6 +43,10 @@ const contentReducer = (state = initialState, action) => {
                 ...state, currentProfile: action.data
             };
 
+        case GET_STATUS:
+            return {
+                ...state, status: action.status
+            }
 
 
         default:
@@ -55,6 +60,7 @@ export default contentReducer;
 export const addPostsActionCreator = () => ({ type: ADD_POSTS });
 export const updateTextActionCreator = (text) => ({ type: UPDATE_TEXT, newText: text });
 export const loadProfileActionCreator = (data) => ({ type: CURRENT_PROFILE, data });
+export const getStatusActionCreator = status => ({ type: GET_STATUS, status })
 
 
 export const getProfileThunkCreator = userId => {
@@ -63,6 +69,26 @@ export const getProfileThunkCreator = userId => {
             .then(response => {
                 dispatch(loadProfileActionCreator(response.data));
             });
+    }
+}
+
+export const getStatusThunkCreator = id => {
+    return dispatch => {
+        userAPI.getStatusFromURL(id)
+            .then(response => {
+                dispatch(getStatusActionCreator(response.data))
+            })
+    }
+}
+
+export const setStatusThunkCreator = status => {
+    return dispatch => {
+        userAPI.setStatus(status)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(getStatusActionCreator(status))
+                }
+            })
     }
 }
 

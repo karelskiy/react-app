@@ -1,42 +1,51 @@
 import React, { Component } from 'react'
 
-export default class Status extends Component {
-
+class Status extends Component {
+  
     state = {
-        isActive: false,
-        value: 'hello'
+        isFocus: false,
+        value: this.props.status
     }
+
 
     active() {
         this.setState({
-            isActive: true
+            isFocus: true
         })
-    }
+    };
 
     unActive() {
         this.setState({
-            isActive: false
+            isFocus: false
+        })
+        this.props.setStatus(this.state.value)
+    }
+
+    changeStatus(event){
+        this.setState({
+            value: event.target.value
         })
     }
 
-    updateValue(e) {
-        this.setState({
-            value: e.target.value
-        })
-    }
 
     render() {
         return (
             <div>
                 <div>
-                    {!this.state.isActive &&
-                        <span onDoubleClick={this.active.bind(this)}>{this.state.value}</span>
+                    {!this.state.isFocus &&
+                        <span onDoubleClick={this.active.bind(this)}>{this.props.status || 'No status'}</span>
                     }
                 </div>
                 <div>
-                    {this.state.isActive && <input onChange={this.updateValue.bind(this)} onBlur={this.unActive.bind(this)} autoFocus={true} value={this.state.value} />}
+                    {this.state.isFocus &&
+                        <input onChange={this.changeStatus.bind(this)} onBlur={this.unActive.bind(this)} autoFocus={true} value={this.state.value} />}
                 </div>
-            </div>
+            </div >
         )
     }
+
+
+
 }
+
+export default Status

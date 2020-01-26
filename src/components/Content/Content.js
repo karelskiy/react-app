@@ -7,7 +7,6 @@ import Status from './Status/Status';
 
 
 function Content(props){
-    
     if(!props.currentProfile){
         return <Preloader />
     }
@@ -16,7 +15,7 @@ function Content(props){
         <div className={classes.content}>
             {/* <img alt='' src= 'https://pics.freeartbackgrounds.com/fullhd/Beach_Background-1001.jpg' /> */}
             <UsersProfile currentProfile={props.currentProfile} />
-            <Status /> 
+            <Status id={props.id} setStatus={props.setStatus} status={props.status} /> 
             <MyPostsContainer />
         </div>
     )
