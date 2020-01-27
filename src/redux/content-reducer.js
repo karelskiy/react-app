@@ -1,7 +1,6 @@
 import { userAPI } from "../axios/api";
 
 const ADD_POSTS = 'ADD-POSTS';
-const UPDATE_TEXT = 'UPDATE-TEXT';
 const CURRENT_PROFILE = 'CURRENT_PROFILE';
 const GET_STATUS = 'GET_STATUS';
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form'
+import { Input } from '../common/formsControl/FormsControl'
+import { required, maxLength } from '../../utilits/validators/validators'
 
 export default class Login extends Component {
 
@@ -19,27 +21,21 @@ export default class Login extends Component {
     }
 }
 
+let maxLength10 = maxLength(10)
 
 class LoginForm extends Component {
-
-    constructor(props){
-        super(props)
-    }
     render() {
         return (
             <form onSubmit={this.props.handleSubmit}>
-                <div>
-                    <Field placeholder={'login'} name={'login'} component={'input'} />
-                </div>
-                <div>
-                    <Field placeholder={'password'} name={'password'} component={'input'} />
-                </div>
-                <div>
+            
+                    <Field placeholder={'login'} name={'login'} component={Input} validate={[required, maxLength10]} />
+    
+                    <Field placeholder={'password'} name={'password'} component={Input} validate={[required, maxLength10]} />            
+                
                     <Field type={'checkbox'} name={'rememberMe'} component={'input'} />remember me
-                </div>
-                <div>
+                    <br/>
                     <input type={'submit'} />
-                </div>
+                
             </form>
         )
     }

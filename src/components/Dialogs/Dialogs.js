@@ -2,6 +2,8 @@ import React from 'react';
 import classes from './Dialogs.module.css';
 import { NavLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+import { Textarea } from '../common/formsControl/FormsControl';
+import { required, maxLength } from '../../utilits/validators/validators';
 
 
 const DialogsItem = (props) => {
@@ -40,10 +42,12 @@ const Dialogs = (props) => {
     )
 }
 
+let maxLength20 = maxLength(20);
+
 const DialogsForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <div><Field placeholder='Enter your message' name={'textarea'} component={'textarea'}/></div>
+            <div><Field placeholder='Enter your message' name={'textarea'} component={Textarea} validate={[required, maxLength20]}/></div>
             <div><input type='submit'/></div>
         </form>
     )
