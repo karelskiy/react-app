@@ -39,3 +39,9 @@ export let userAPI = {
         return instance.put(`profile/status`, {status: status});
     }
 }
+
+export let authAPI = {
+    putLogin(email, password){
+        return instance.post(`auth/login`, {email:email, password: password})
+    }
+}

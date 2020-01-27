@@ -1,7 +1,7 @@
-import { userAPI } from "../axios/api";
+import { userAPI, authAPI } from "../axios/api";
 
 const SET_USER_DATA = 'SET_USER_DATA';
-
+const PUT_LOGIN = 'PUT_LOGIN';
 let initialState = {
     userId: null,
     email: null,
@@ -24,7 +24,7 @@ export default authReducer;
 
 
 export const setUserDataActionCreator = (userId, login, email) => ({ type: SET_USER_DATA, data: { userId, login, email } });
-
+export const putLoginActionCreator = (email, login) => ({type: PUT_LOGIN, data:{email, login}})
 export const isLoginThunkCreator = _ => {
     return dispatch => {
         userAPI.getAuth().then(response => {
@@ -33,5 +33,14 @@ export const isLoginThunkCreator = _ => {
                 dispatch(setUserDataActionCreator(id, login, email));
             }
         });
+    }
+}
+
+export const putLoginTunkCreator = (email, password) => {
+    return dispatch => {
+        authAPI.putLogin(email, password)
+            .then(response => {
+                console.log(response)
+            })
     }
 }
