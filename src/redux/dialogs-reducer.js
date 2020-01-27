@@ -1,4 +1,3 @@
-const TEXT_UPDATE = 'TEXT-UPDATE';
 const CLICK = 'CLICK';
 
 
@@ -15,25 +14,18 @@ let initialState = {
         { id:2, message: 'How much it cost?' },
         { id:3, message: 'Sorry, but i can`t' },
     ],
-    newText: ''
 };
 
 const dialogReducer = (state = initialState, action) => {
     switch (action.type) {
-        case TEXT_UPDATE: {
-            let copyState = { ...state }
-            copyState.newText = action.newText;
-            return copyState;
-        }
 
         case CLICK: {
             let copyState = {...state }
             let obj1 = {
-                message: state.newText,
+                message: action.data,
                 id: 4
 
             };
-            copyState.newText = '';
             copyState.MessageData = [...state.MessageData, obj1];
             return copyState;
         }
@@ -44,7 +36,5 @@ const dialogReducer = (state = initialState, action) => {
 }
 
 
-
-export const textUpdateActionCreator = (text) => ({ type: TEXT_UPDATE, newText: text });
-export const clickActionCreator = () => ({ type: CLICK });
+export const clickActionCreator = (data) => ({ type: CLICK, data });
 export default dialogReducer;

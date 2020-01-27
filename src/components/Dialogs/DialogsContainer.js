@@ -8,18 +8,14 @@ let mapStateToProps = (state) => {
     return {
         dialogs: state.dialogPage.DialogsData,
         messages: state.dialogPage.MessageData,
-        newText: state.dialogPage.newText,
     }
 }
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        click(){
-            dispatch(clickActionCreator())
+        click(data){
+            dispatch(clickActionCreator(data))
         },
-        textUpdate(text){
-            dispatch(textUpdateActionCreator(text))
-        }
     }
 }
 

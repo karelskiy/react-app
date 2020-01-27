@@ -11,7 +11,6 @@ let initialState = {
         { likes: 17, id: 2, message: 'I have very bad day...' },
         { likes: 6, id: 3, message: 'Sorry, but i`m late' }
     ],
-    textForArea: 'some words',
     currentProfile: null,
     status: '',
 };
@@ -22,19 +21,11 @@ const contentReducer = (state = initialState, action) => {
             let obj = {
                 likes: 0,
                 id: 4,
-                message: state.textForArea,
+                message: action.text,
             };
             return {
                 ...state,
                 PostsData: [...state.PostsData, obj],
-                textForArea: ''
-            };
-        }
-
-        case UPDATE_TEXT: {
-            return {
-                ...state,
-                textForArea: action.newText
             };
         }
 
@@ -57,8 +48,7 @@ const contentReducer = (state = initialState, action) => {
 export default contentReducer;
 
 
-export const addPostsActionCreator = () => ({ type: ADD_POSTS });
-export const updateTextActionCreator = (text) => ({ type: UPDATE_TEXT, newText: text });
+export const addPostsActionCreator = (text) => ({ type: ADD_POSTS, text });
 export const loadProfileActionCreator = (data) => ({ type: CURRENT_PROFILE, data });
 export const getStatusActionCreator = status => ({ type: GET_STATUS, status })
 
