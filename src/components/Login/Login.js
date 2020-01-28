@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import { Input } from '../common/formsControl/FormsControl'
 import { required, maxLength } from '../../utilits/validators/validators'
+import classes from './../common/formsControl/FormsControl.module.css'
 
 export default class Login extends Component {
 
@@ -31,8 +32,11 @@ class LoginForm extends Component {
     
                     <Field placeholder={'password'} name={'password'} type={'password'} component={Input} validate={[required, maxLength10]} />            
                 
-                    <Field type={'checkbox'} name={'rememberMe'} component={'input'} />remember me
+                    <Field type={'checkbox'} checked name={'rememberMe'} component={'input'} />remember me
                     <br/>
+                    {this.props.error && <div>
+                        <span  className={classes.errorSpan}>{this.props.error}</span>
+                    </div>}
                     <button>Submit</button>
                 
             </form>

@@ -1,6 +1,8 @@
 body{
   /* margin: 5px; */
-  background: bisque;
+  background: white;
+  width: 800px;
+  margin: 0 auto;
 }
 
 .App{
@@ -8,7 +10,7 @@ body{
   grid-template-areas: 'header header'
                        'nav content';
 
-  grid-template-rows: 70px 589px;
+  grid-template-rows: 70px 599px;
   grid-template-columns: 210px 5fr;
   /* grid-gap: 10px; */
 }

@@ -2,21 +2,26 @@ import Content from './Content'
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getProfileThunkCreator, getStatusThunkCreator, setStatusThunkCreator } from '../../redux/content-reducer';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import Login from '../Login/Login';
-import LoginContainer from '../Login/LoginContainer';
 
 class ContentContainer extends Component {
 
     componentDidMount() {
-        this.props.getProfile(!this.props.match.params.userId ? 5732 : this.props.match.params.userId);
-        this.props.getStatus(!this.props.match.params.userId ? 5732 : this.props.match.params.userId)
+        let userId = this.props.match.params.userId || this.props.myId || (this.props.history.push('/login'))
+        this.props.getProfile(userId);
+        this.props.getStatus(userId);
+    }
+
+    componentDidUpdate() {
+        let userId = this.props.match.params.userId || this.props.myId || (this.props.history.push('/login'))
+        this.props.getProfile(userId);
+        this.props.getStatus(userId);
+
     }
 
 
     render() {
-        if(!this.props.isAuth) return <Redirect to='/login'/>
         return (
             <div>
                 <Content {...this.props} id={this.props.match.params.userId} currentProfile={this.props.currentProfile} status={this.props.status} setStatus={this.props.setStatus} />
@@ -29,7 +34,8 @@ let mapStateToProps = (state) => {
     return {
         currentProfile: state.contentPage.currentProfile,
         status: state.contentPage.status,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        myId: state.auth.userId
 
     }
 }
@@ -40,13 +46,13 @@ let mapDispatchToProps = (dispatch) => {
         getProfile(userId) {
             dispatch(getProfileThunkCreator(userId))
         },
-        getStatus(id){
+        getStatus(id) {
             dispatch(getStatusThunkCreator(id))
         },
-        setStatus(status){
+        setStatus(status) {
             dispatch(setStatusThunkCreator(status))
         },
-        
+
     }
 }
 

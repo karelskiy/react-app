@@ -24,9 +24,8 @@ function MyPosts(props) {
 
 let maxLength10 = maxLength(10);
 
+
 const MyPostsForm = (props) => {
-
-
     return (
         <form onSubmit={props.handleSubmit}>
             <Field component={Textarea} name='textarea' placeholder='Say hello :)' validate={[required, maxLength10]} />

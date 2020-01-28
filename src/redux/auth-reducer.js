@@ -1,4 +1,5 @@
 import { userAPI, authAPI } from "../axios/api";
+import { stopSubmit } from "redux-form";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const PUT_LOGIN = 'PUT_LOGIN';
@@ -28,9 +29,8 @@ export const putLoginActionCreator = (email, login) => ({ type: PUT_LOGIN, data:
 
 export const isLoginThunkCreator = _ => {
     return dispatch => {
-        userAPI.getAuth().then(response => {
+        return userAPI.getAuth().then(response => {
             if (response.data.resultCode === 0) {
-                console.log(response.data.data)
                 let { id, login, email } = response.data.data;
                 dispatch(setUserDataActionCreator(id, login, email, true));
             }
@@ -45,9 +45,11 @@ export const putLoginTunkCreator = (email, password, rememberMe) => {
                 console.log(response)
                 if (response.data.resultCode === 0) {
                     dispatch(isLoginThunkCreator());
+                } else {
+                    dispatch(stopSubmit('login', { _error: response.data.messages }))
                 }
             })
-    }
+    }   
 }
 
 export const deleteLoginThunkCreator = () => {

@@ -2,28 +2,24 @@ import React from 'react';
 import classes from './Nav-bar.module.css';
 import { NavLink } from 'react-router-dom';
 import Sidebar from './Sidebar/Sidebar'
+import { reduxForm, Field } from 'redux-form';
+import { Textarea } from '../common/formsControl/FormsControl';
+import { required, maxLength } from '../../utilits/validators/validators';
+
 
 export let counter = 0;
-let textForResponse;
 
+function Nav(props) {
 
-function  Nav(props) {
-
-    const friends = props.friends.map(el => <Sidebar key={el.id} img={el.img} response={el.response}/>)
+    const friends = props.friends.map(el => <Sidebar key={el.id} img={el.img} response={el.response} />)
 
     // **********************************
-    const sayHi =() => {
-        props.sayHi(textForResponse);
+
+    const onSubmit = (dataForm) => {
+        props.sayHi(dataForm.navBarForm, counter);
         counter++;
-        if(counter >= 3) counter = 0;
+        if (counter >= 3) counter = 0;
     }
-
-    const changeOurText = (event) => {
-        textForResponse = event.target.value;
-        props.changeOurText(event.target.value)
-    }
-
-
     // **********************************
 
     return (
@@ -40,11 +36,26 @@ function  Nav(props) {
             <div className={classes.friendsDiv}>
                 <h2 className={classes.h2}>Friends</h2>
                 <div className={classes.friendsImg}>{friends}</div>
-                <textarea placeholder="Say hi :)" onChange={changeOurText} value={props.text}></textarea>
-                <div><button onClick={sayHi} className={classes.buttonSend}>send</button></div>
+                <NavBarReduxForm onSubmit={onSubmit} />
+
             </div>
         </div>
     )
 }
+
+let maxlength10 = maxLength(10);
+
+let NavBarForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field placeholder="Say hi :)" name='navBarForm' component={Textarea} validate={[required, maxlength10]}></Field>
+
+            <button className={classes.buttonSend}>send</button>
+        </form>
+
+    )
+}
+
+let NavBarReduxForm = reduxForm({form: 'navBarForm'})(NavBarForm)
 
 export default Nav;

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 let mapStateToProps = (state) => {
     return {
         friends: state.sidebarPage.friends,
-        text: state.sidebarPage.text
     }
 }
 
@@ -13,9 +12,6 @@ let mapDispatchToProps = (dispatch) => {
     return {
         sayHi(text){
             dispatch(sayHiActionCreator(text))
-        },
-        changeOurText(text){
-            dispatch(changeOurTextActionCreator(text))
         },
     }
 }
