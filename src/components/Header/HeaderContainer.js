@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Header from './Header';
 import { connect } from 'react-redux';
-import { isLoginThunkCreator } from '../../redux/auth-reducer';
+import { isLoginThunkCreator, deleteLoginThunkCreator } from '../../redux/auth-reducer';
 
 class HeaderContainer extends Component {
     componentDidMount() {
@@ -10,7 +10,7 @@ class HeaderContainer extends Component {
 
     render() {
         return (
-            <Header {...this.props} />
+            <Header {...this.props} deleteLogin={this.props.deleteLogin} />
         )
     }
 }
@@ -26,6 +26,9 @@ let mapDispatchToProps = (dispatch) => {
     return {
         isLogin(){
             dispatch(isLoginThunkCreator())
+        },
+        deleteLogin(){
+            dispatch(deleteLoginThunkCreator())
         }
     }
 }

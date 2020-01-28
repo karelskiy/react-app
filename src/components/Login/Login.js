@@ -6,9 +6,8 @@ import { required, maxLength } from '../../utilits/validators/validators'
 export default class Login extends Component {
 
     onSubmit(dataForm){
-        let { login, password } = dataForm
-        console.log(dataForm)
-        this.props.putLogin({login, password})
+        let { email, password, rememberMe } = dataForm
+        this.props.putLogin(email, password, rememberMe)
     }
 
     render() {
@@ -21,20 +20,20 @@ export default class Login extends Component {
     }
 }
 
-let maxLength10 = maxLength(10)
+let maxLength10 = maxLength(20)
 
 class LoginForm extends Component {
     render() {
         return (
             <form onSubmit={this.props.handleSubmit}>
             
-                    <Field placeholder={'login'} name={'login'} component={Input} validate={[required, maxLength10]} />
+                    <Field placeholder={'login'} name={'email'} component={Input} validate={[required, maxLength10]} />
     
-                    <Field placeholder={'password'} name={'password'} component={Input} validate={[required, maxLength10]} />            
+                    <Field placeholder={'password'} name={'password'} type={'password'} component={Input} validate={[required, maxLength10]} />            
                 
                     <Field type={'checkbox'} name={'rememberMe'} component={'input'} />remember me
                     <br/>
-                    <input type={'submit'} />
+                    <button>Submit</button>
                 
             </form>
         )

@@ -36,12 +36,15 @@ export let userAPI = {
     },
 
     setStatus(status){
-        return instance.put(`profile/status`, {status: status});
+        return instance.put(`profile/status`, {status: status})
     }
 }
 
 export let authAPI = {
-    putLogin(email, password){
-        return instance.post(`auth/login`, {email:email, password: password})
+    putLogin(email, password, rememberMe){
+        return instance.post(`auth/login`, {email, password, rememberMe})
+    },
+    deleteLogin(){
+        return instance.delete(`auth/login`)
     }
 }

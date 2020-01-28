@@ -2,8 +2,10 @@ import Content from './Content'
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getProfileThunkCreator, getStatusThunkCreator, setStatusThunkCreator } from '../../redux/content-reducer';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { compose } from 'redux';
+import Login from '../Login/Login';
+import LoginContainer from '../Login/LoginContainer';
 
 class ContentContainer extends Component {
 
@@ -14,6 +16,7 @@ class ContentContainer extends Component {
 
 
     render() {
+        if(!this.props.isAuth) return <Redirect to='/login'/>
         return (
             <div>
                 <Content {...this.props} id={this.props.match.params.userId} currentProfile={this.props.currentProfile} status={this.props.status} setStatus={this.props.setStatus} />
@@ -26,6 +29,7 @@ let mapStateToProps = (state) => {
     return {
         currentProfile: state.contentPage.currentProfile,
         status: state.contentPage.status,
+        isAuth: state.auth.isAuth
 
     }
 }

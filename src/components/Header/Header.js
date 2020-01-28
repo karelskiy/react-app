@@ -6,8 +6,11 @@ function Header(props) {
     return (
         <header className={classes.header}>
             <img alt='' src='https://upload.wikimedia.org/wikipedia/commons/b/be/Lineage_OS_Logo.png' />
-            {props.isAuth ? props.login : <NavLink className={classes.login} to='/login'>Login</NavLink> }
-            
+            <div>
+                {props.isAuth ? <div>{props.login}  <span onClick={props.deleteLogin}>exit</span></div>  : <NavLink className={classes.login} to='/login'>Login</NavLink>}
+            </div>
+
+
         </header>
     )
 }
