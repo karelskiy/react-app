@@ -3,8 +3,8 @@ import { clickOnPageActionCreator, getUsersThunkCreator, isFollowThunkCreator, i
 import { Component } from 'react';
 import React from 'react';
 import FindUsers from './FindUsers';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { getUsersData, getLoaderState, getCurrentPage, getPageSize, getTotalCountPerson, getArrToggles } from '../../redux/users-selector';
 
 
 class findUsersAPIContainer extends Component {
@@ -41,12 +41,12 @@ class findUsersAPIContainer extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        usersData: state.findUsersPage.usersData,
-        loaderState: state.findUsersPage.loaderState,
-        currentPage: state.findUsersPage.currentPage,
-        pageSize: state.findUsersPage.pageSize,
-        totalCountPerson: state.findUsersPage.totalCountPerson,
-        arrToggles: state.findUsersPage.arrToggles
+        usersData: getUsersData(state),
+        loaderState: getLoaderState(state),
+        currentPage: getCurrentPage(state),
+        pageSize: getPageSize(state),
+        totalCountPerson: getTotalCountPerson(state),
+        arrToggles: getArrToggles(state)
 
     }
 }
@@ -57,13 +57,13 @@ let mapDispatchToProps = (dispatch) => {
         clickOnPage(id) {
             dispatch(clickOnPageActionCreator(id))
         },
-        getUsers(pageSize, currentPage){
+        getUsers(pageSize, currentPage) {
             dispatch(getUsersThunkCreator(pageSize, currentPage))
         },
-        isFollow(id){
+        isFollow(id) {
             dispatch(isFollowThunkCreator(id))
         },
-        isUnfollow(id){
+        isUnfollow(id) {
             dispatch(isUnfollowThunkCreator(id))
         }
 

@@ -10,41 +10,41 @@ let instance = axios.create({
 
 
 export let userAPI = {
-    getUsers(pageSize = 4, currentPage = 1){
+    getUsers(pageSize = 4, currentPage = 1) {
         return instance.get(`users/?count=${pageSize}&page=${currentPage}`)
             .then(response => response.data)
     },
 
-    follow(id){
+    follow(id) {
         return instance.post(`follow/${id}`)
     },
-    
-    unfollow(id){
+
+    unfollow(id) {
         return instance.delete(`follow/${id}`)
     },
 
-    getAuth(){
+    getAuth() {
         return instance.get(`auth/me`)
     },
 
-    getProfileFromURL(userIdFromURL){
+    getProfileFromURL(userIdFromURL) {
         return instance.get(`profile/${userIdFromURL}`)
     },
 
-    getStatusFromURL(id){
+    getStatusFromURL(id) {
         return instance.get(`profile/status/${id}`)
     },
 
-    setStatus(status){
-        return instance.put(`profile/status`, {status: status})
+    setStatus(status) {
+        return instance.put(`profile/status`, { status: status })
     }
 }
 
 export let authAPI = {
-    putLogin(email, password, rememberMe){
-        return instance.post(`auth/login`, {email, password, rememberMe})
+    putLogin(email, password, rememberMe) {
+        return instance.post(`auth/login`, { email, password, rememberMe })
     },
-    deleteLogin(){
+    deleteLogin() {
         return instance.delete(`auth/login`)
     }
 }

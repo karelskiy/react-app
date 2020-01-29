@@ -33,7 +33,7 @@ class App extends Component {
         <div className='AppContents'>
           <Route path='/profile/:userId?' render={() => <ContentContainer />} />
           <Route path='/dialogs' render={() => <DialogsContainer />} />
-          <Route path='/find-users' render={() => <FindUsersContainer />} />
+          <Route path='/users/' render={() => <FindUsersContainer />} />
           <Route path='/login' render={() => <LoginContainer />} />
           <Route path='/music' component={Music} />
           <Route path='/settings' component={Settings} />
