@@ -1,6 +1,13 @@
+import { createSelector } from 'reselect'
+
 export const getUsersData = (state) => {
     return state.findUsersPage.usersData
 };
+
+// reselect
+export const getUsersDataReselect = createSelector(getUsersData, (usersData)=>{
+    return usersData.filter(u => u)
+})
 
 
 export const getLoaderState = (state) => {
