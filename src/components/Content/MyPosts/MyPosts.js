@@ -6,21 +6,23 @@ import { required, maxLength } from '../../../utilits/validators/validators';
 import { Textarea } from '../../common/formsControl/FormsControl';
 
 
-function MyPosts(props) {
+const MyPosts = React.memo((props) => {
     const posts = props.posts.map(el => <Post key={el.id} message={el.message} likes={el.likes} />);
 
     const onSubmit = (text) => {
         props.addPost(text.textarea)
     }
+    console.log('RENDER')
 
     return (
+        
         <div>
             <h3>My Posts</h3>
             <MyPostsReduxForm onSubmit={onSubmit} />
-            {posts}
+            {posts} 
         </div>
     )
-}
+})
 
 let maxLength10 = maxLength(10);
 

@@ -3,6 +3,7 @@ import { userAPI } from "../axios/api";
 const ADD_POSTS = 'ADD-POSTS';
 const CURRENT_PROFILE = 'CURRENT_PROFILE';
 const GET_STATUS = 'GET_STATUS';
+const DELETE_POST = 'DELETE_POST';
 
 let initialState = {
     PostsData: [
@@ -38,6 +39,9 @@ const contentReducer = (state = initialState, action) => {
                 ...state, status: action.status
             }
 
+        case DELETE_POST:
+            return { ...state, PostsData: [...state.PostsData.filter(i => i.id !== action.postId)] }
+
 
         default:
             return state;
@@ -49,7 +53,8 @@ export default contentReducer;
 
 export const addPostsActionCreator = (text) => ({ type: ADD_POSTS, text });
 export const loadProfileActionCreator = (data) => ({ type: CURRENT_PROFILE, data });
-export const getStatusActionCreator = status => ({ type: GET_STATUS, status })
+export const getStatusActionCreator = status => ({ type: GET_STATUS, status });
+export const deletePostActionCreator = (postId) => ({ type: DELETE_POST, postId })
 
 
 export const getProfileThunkCreator = userId => {

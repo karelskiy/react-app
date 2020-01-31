@@ -11,6 +11,7 @@ class ContentContainer extends Component {
         let userId = this.props.match.params.userId || this.props.myId || (this.props.history.push('/login'))
         this.props.getProfile(userId);
         this.props.getStatus(userId);
+
     }
 
     componentDidUpdate() {
@@ -21,7 +22,7 @@ class ContentContainer extends Component {
     }
 
 
-    render() {
+    render() {  
         return (
             <div>
                 <Content {...this.props} id={this.props.match.params.userId} currentProfile={this.props.currentProfile} status={this.props.status} setStatus={this.props.setStatus} />
@@ -31,7 +32,9 @@ class ContentContainer extends Component {
 }
 
 let mapStateToProps = (state) => {
+
     return {
+        
         currentProfile: state.contentPage.currentProfile,
         status: state.contentPage.status,
         isAuth: state.auth.isAuth,

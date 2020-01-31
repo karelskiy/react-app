@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const StatusWitHook = (props) => {
 
     let [isFocus, setIsFocus ] = useState(false);
     let [status, setStatus ] = useState(props.status);
+
+    // useEffect(()=>{
+    //     setStatus(props.status)
+    // },[props.status])
 
     let active = () => {
         setIsFocus(true);
