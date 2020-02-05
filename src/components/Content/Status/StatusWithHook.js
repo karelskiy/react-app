@@ -5,9 +5,9 @@ const StatusWitHook = (props) => {
     let [isFocus, setIsFocus ] = useState(false);
     let [status, setStatus ] = useState(props.status);
 
-    // useEffect(()=>{
-    //     setStatus(props.status)
-    // },[props.status])
+    useEffect(()=>{
+        setStatus(props.status)
+    },[props.status])
 
     let active = () => {
         setIsFocus(true);

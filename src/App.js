@@ -23,7 +23,6 @@ class App extends Component {
     
   }
 
-
   render() {
     if(!this.props.isAuthorized) return <Preloader />
     return (
@@ -39,8 +38,6 @@ class App extends Component {
           <Route path='/settings' component={Settings} />
         </div>
       </div>
-      // <Example />
-
     );
   }
 

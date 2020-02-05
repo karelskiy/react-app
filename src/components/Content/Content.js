@@ -16,7 +16,7 @@ function Content(props){
         <div className={classes.content}>
             {/* <img alt='' src= 'https://pics.freeartbackgrounds.com/fullhd/Beach_Background-1001.jpg' /> */}
             <UsersProfile currentProfile={props.currentProfile} />
-            <StatusWitHook id={props.id} setStatus={props.setStatus} status={props.status} /> 
+            <Status id={props.id} setStatus={props.setStatus} status={props.status} /> 
             <MyPostsContainer />
         </div>
     )

@@ -28,37 +28,34 @@ export const setUserDataActionCreator = (userId, login, email, isAuth) => ({ typ
 export const putLoginActionCreator = (email, login) => ({ type: PUT_LOGIN, data: { email, login } })
 
 export const isLoginThunkCreator = _ => {
-    return dispatch => {
-        return userAPI.getAuth().then(response => {
-            if (response.data.resultCode === 0) {
-                let { id, login, email } = response.data.data;
-                dispatch(setUserDataActionCreator(id, login, email, true));
-            }
-        });
+    return async dispatch => {
+        let response = await userAPI.getAuth()
+        
+        if (response.data.resultCode === 0) {
+            let { id, login, email } = response.data.data;
+            dispatch(setUserDataActionCreator(id, login, email, true));
+        }
     }
 }
 
 export const putLoginTunkCreator = (email, password, rememberMe) => {
-    return dispatch => {
-        authAPI.putLogin(email, password, rememberMe)
-            .then(response => {
-                console.log(response)
-                if (response.data.resultCode === 0) {
-                    dispatch(isLoginThunkCreator());
-                } else {
-                    dispatch(stopSubmit('login', { _error: response.data.messages }))
-                }
-            })
-    }   
+    return async dispatch => {
+        let response = await authAPI.putLogin(email, password, rememberMe)
+
+        if (response.data.resultCode === 0) {
+            dispatch(isLoginThunkCreator());
+        } else {
+            dispatch(stopSubmit('login', { _error: response.data.messages }))
+        }
+    }
 }
 
 export const deleteLoginThunkCreator = () => {
-    return dispatch => {
-        authAPI.deleteLogin()
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(setUserDataActionCreator(null, null, null, false))
-                }
-            })
+    return async dispatch => {
+        let response = await authAPI.deleteLogin()
+
+        if (response.data.resultCode === 0) {
+            dispatch(setUserDataActionCreator(null, null, null, false))
+        }
     }
 }

@@ -6,6 +6,7 @@ const LOAD_FRIENDS = 'LOAD_FRIENDS';
 const CLICK_ON_PAGE = 'CLICK_ON_PAGE';
 const LOADER = 'LOADER';
 const IS_TOGGLE = 'IS_TOGGLE';
+const COUNT_PERSON = 'COUNT_PERSON';
 
 let initiateState = {
     usersData: [],
@@ -16,31 +17,26 @@ let initiateState = {
     isToggle: false,
     arrToggles: []
 }
+
+let followUnfollowButton = (state, action, isFollowed) => {
+    let stateCopy = {
+        ...state, usersData: state.usersData.map(i => {
+            if (i.id === action.id) {
+                return { ...i, followed: isFollowed }
+            }
+            return i
+        })
+    };
+    return stateCopy;
+}
+
 let findUsersReducer = (state = initiateState, action) => {
     switch (action.type) {
-        case FOLLOW_FRIENDS: {
-            let stateCopy = {
-                ...state, usersData: state.usersData.map(i => {
-                    if (i.id === action.id) {
-                        return { ...i, followed: true }
-                    }
-                    return i
-                })
-            };
-            return stateCopy;
-        };
+        case FOLLOW_FRIENDS:
+            return followUnfollowButton(state, action, true);
 
         case UNFOLLOW_FRIENDS: {
-            let stateCopy = {
-                ...state, usersData: state.usersData.map(i => {
-                    if (i.id === action.id) {
-                        return { ...i, followed: false }
-                    }
-                    return i
-                })
-            };
-
-            return stateCopy;
+            return followUnfollowButton(state, action, false)
         };
 
         case LOAD_FRIENDS:
@@ -63,6 +59,8 @@ let findUsersReducer = (state = initiateState, action) => {
                 ...state,
                 arrToggles: action.state ? [...state.arrToggles, action.id] : [state.arrToggles.filter(i => i != action.id)]
             }
+        case COUNT_PERSON:
+            return {...state, totalCountPerson: action.int}
 
         default:
             return state;
@@ -75,6 +73,7 @@ export const loadFriendsActionCreator = (users) => ({ type: LOAD_FRIENDS, users 
 export const clickOnPageActionCreator = (id) => ({ type: CLICK_ON_PAGE, id });
 export const loaderActionCreator = (loader) => ({ type: LOADER, loader });
 export const isToggleActionCreator = (state, id) => ({ type: IS_TOGGLE, state, id });
+export const setTotalCountPerson = (int) => ({type: COUNT_PERSON, int})
 
 
 
@@ -82,41 +81,45 @@ export const isToggleActionCreator = (state, id) => ({ type: IS_TOGGLE, state, i
 
 
 // *******************************************************************
-export const getUsersThunkCreator = (pageSize, currentPage) => {
-    return dispatch => {
+export const getUsersThunkCreator = (pageSize, currentPage) => {     //   <-- thunkCreator
+    return async dispatch => {                                       //   <-- thunk
         dispatch(loaderActionCreator(true));
-        userAPI.getUsers(pageSize, currentPage).then(response => {
-            dispatch(loaderActionCreator(false));
-            dispatch(loadFriendsActionCreator(response.items));
-        });
+        let response = await userAPI.getUsers(pageSize, currentPage);
+        console.log(response)
+        dispatch(setTotalCountPerson(response.totalCount))
+        dispatch(loaderActionCreator(false));
+        dispatch(loadFriendsActionCreator(response.items));
     }
 }
 
+const followUnfollowFlow = (id, dispatch, actionCreator, methodAPI) => {
+    dispatch(loaderActionCreator(true));
+    dispatch(isToggleActionCreator(true, id));
+    let response = methodAPI
+
+    if (response.data.resultCode === 0) {
+        dispatch(loaderActionCreator(false));
+        dispatch(isToggleActionCreator(false, id));
+        dispatch(actionCreator)
+    }
+}
+
+
 export const isFollowThunkCreator = id => {
-    return dispatch => {
-        dispatch(loaderActionCreator(true));
-        dispatch(isToggleActionCreator(true, id));
-        userAPI.follow(id).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(loaderActionCreator(false));
-                dispatch(isToggleActionCreator(false, id));
-                dispatch(followFriendsActionCreator(id))
-            }
-        })
+    return async dispatch => {
+
+        let actionCreator = followFriendsActionCreator(id);
+        let methodAPI = await userAPI.follow(id)
+        followUnfollowFlow(id, dispatch, actionCreator, methodAPI)
     }
 }
 
 export const isUnfollowThunkCreator = id => {
-    return dispatch => {
-        dispatch(loaderActionCreator(true));
-        dispatch(isToggleActionCreator(true, id));
-        userAPI.unfollow(id).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(loaderActionCreator(false));
-                dispatch(isToggleActionCreator(false, id));
-                dispatch(unfollowFriendsActionCreator(id))
-            }
-        })
+    return async dispatch => {
+
+        let actionCreator = unfollowFriendsActionCreator(id)
+        let methodAPI = await userAPI.unfollow(id);
+        followUnfollowFlow(id, dispatch, actionCreator, methodAPI)
     }
 }
 

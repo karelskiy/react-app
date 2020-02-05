@@ -50,5 +50,8 @@
   "bugs": {
     "url": "https://github.com/karelskiy/react-app/issues"
   },
-  "homepage": "https://github.com/karelskiy/react-app#readme"
+  "homepage": "https://github.com/karelskiy/react-app#readme",
+  "devDependencies": {
+    "react-test-renderer": "^16.12.0"
+  }
 }

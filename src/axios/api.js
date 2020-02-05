@@ -8,6 +8,23 @@ let instance = axios.create({
     }
 });
 
+let obj = {
+    "aboutMe": "i am cool",
+    "contacts": {
+        facebook: "facebook.com",
+        github: "github.com",
+        instagram: "instagra.com/sds",
+        mainLink: null,
+        twitter: "https://twitter.com/@sdf",
+        vk: "vk.com/dim",
+        website: null,
+        youtube: null
+    },
+    "lookingForAJob": true,
+    "lookingForAJobDescription": 'не ищу',
+    "fullName": "karelskiy_",
+}
+
 
 export let userAPI = {
     getUsers(pageSize = 4, currentPage = 1) {
@@ -37,6 +54,26 @@ export let userAPI = {
 
     setStatus(status) {
         return instance.put(`profile/status`, { status: status })
+    },
+
+    putDataUser(){
+        return instance.put(`profile/5732`, {
+            "aboutMe": "i am cool",
+            "contacts": {
+                facebook: "facebook.com",
+                github: "github.com",
+                instagram: "instagra.com/sds",
+                mainLink: null,
+                twitter: "https://twitter.com/@sdf",
+                vk: "vk.com/dim",
+                website: null,
+                youtube: null
+            },
+            "lookingForAJob": true,
+            "lookingForAJobDescription": 'не ищу',
+            "fullName": "karelskiy_",
+        }
+        )
     }
 }
 

@@ -58,31 +58,28 @@ export const deletePostActionCreator = (postId) => ({ type: DELETE_POST, postId 
 
 
 export const getProfileThunkCreator = userId => {
-    return dispatch => {
-        userAPI.getProfileFromURL(userId)
-            .then(response => {
-                dispatch(loadProfileActionCreator(response.data));
-            });
+    return async dispatch => {
+        let response = await userAPI.getProfileFromURL(userId);
+
+        dispatch(loadProfileActionCreator(response.data));
     }
 }
 
 export const getStatusThunkCreator = id => {
-    return dispatch => {
-        userAPI.getStatusFromURL(id)
-            .then(response => {
-                dispatch(getStatusActionCreator(response.data))
-            })
+    return async dispatch => {
+        let response = await userAPI.getStatusFromURL(id);
+
+        dispatch(getStatusActionCreator(response.data))
     }
 }
 
 export const setStatusThunkCreator = status => {
-    return dispatch => {
-        userAPI.setStatus(status)
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(getStatusActionCreator(status))
-                }
-            })
+    return async dispatch => {
+        let response = await userAPI.setStatus(status);
+        
+        if (response.data.resultCode === 0) {
+            dispatch(getStatusActionCreator(status))
+        }
     }
 }
 
