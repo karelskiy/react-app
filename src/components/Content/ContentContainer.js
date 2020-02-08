@@ -1,31 +1,35 @@
 import Content from './Content'
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { getProfileThunkCreator, getStatusThunkCreator, setStatusThunkCreator } from '../../redux/content-reducer';
+import { getProfileThunkCreator, getStatusThunkCreator, setStatusThunkCreator, editProfileThunkCreator, loadPhotoThunkCreator } from '../../redux/content-reducer';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
 class ContentContainer extends Component {
 
+    refresh() {
+        let userId = this.props.match.params.userId || this.props.myId || (this.props.history.push('/login'))
+        this.props.getProfile(userId);
+        this.props.getStatus(userId);
+
+    }
+
     componentDidMount() {
-        let userId = this.props.match.params.userId || this.props.myId || (this.props.history.push('/login'))
-        this.props.getProfile(userId);
-        this.props.getStatus(userId);
-
+        this.refresh();
+        console.log(this.props.match.params.userId)
     }
 
-    componentDidUpdate() {
-        let userId = this.props.match.params.userId || this.props.myId || (this.props.history.push('/login'))
-        this.props.getProfile(userId);
-        this.props.getStatus(userId);
-
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.userId != prevProps.match.params.userId) {
+            this.refresh();
+        }
     }
+    
 
-
-    render() {  
+    render() {
         return (
             <div>
-                <Content {...this.props} id={this.props.match.params.userId} currentProfile={this.props.currentProfile} status={this.props.status} setStatus={this.props.setStatus} />
+                <Content loadPhoto={this.props.loadPhoto} editProfile={this.props.editProfile} {...this.props} id={this.props.match.params.userId} currentProfile={this.props.currentProfile} status={this.props.status} setStatus={this.props.setStatus} />
             </div>
         )
     }
@@ -34,7 +38,7 @@ class ContentContainer extends Component {
 let mapStateToProps = (state) => {
 
     return {
-        
+
         currentProfile: state.contentPage.currentProfile,
         status: state.contentPage.status,
         isAuth: state.auth.isAuth,
@@ -55,6 +59,14 @@ let mapDispatchToProps = (dispatch) => {
         setStatus(status) {
             dispatch(setStatusThunkCreator(status))
         },
+
+        editProfile(profile) {
+            dispatch(editProfileThunkCreator(profile));
+        },
+
+        loadPhoto(photo){
+            dispatch(loadPhotoThunkCreator(photo));
+        }
 
     }
 }

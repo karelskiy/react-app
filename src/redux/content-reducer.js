@@ -4,6 +4,7 @@ const ADD_POSTS = 'ADD-POSTS';
 const CURRENT_PROFILE = 'CURRENT_PROFILE';
 const GET_STATUS = 'GET_STATUS';
 const DELETE_POST = 'DELETE_POST';
+const LOAD_PHOTO = 'LOAD_PHOTO';
 
 let initialState = {
     PostsData: [
@@ -40,7 +41,14 @@ const contentReducer = (state = initialState, action) => {
             }
 
         case DELETE_POST:
-            return { ...state, PostsData: [...state.PostsData.filter(i => i.id !== action.postId)] }
+            return {
+                ...state, PostsData: [...state.PostsData.filter(i => i.id !== action.postId)] 
+            }
+        
+        case LOAD_PHOTO: 
+            return {
+                ...state, currentProfile: {...state.currentProfile, photos: action.photo}
+            }
 
 
         default:
@@ -55,12 +63,12 @@ export const addPostsActionCreator = (text) => ({ type: ADD_POSTS, text });
 export const loadProfileActionCreator = (data) => ({ type: CURRENT_PROFILE, data });
 export const getStatusActionCreator = status => ({ type: GET_STATUS, status });
 export const deletePostActionCreator = (postId) => ({ type: DELETE_POST, postId })
+export const loadPhotoActionCreator = photo => ({type: LOAD_PHOTO, photo})
 
 
 export const getProfileThunkCreator = userId => {
     return async dispatch => {
         let response = await userAPI.getProfileFromURL(userId);
-
         dispatch(loadProfileActionCreator(response.data));
     }
 }
@@ -83,3 +91,22 @@ export const setStatusThunkCreator = status => {
     }
 }
 
+export const editProfileThunkCreator = profile => {
+    return async (dispatch, getState) => {
+        let response = await userAPI.editProfile(profile);
+
+        if(response.data.resultCode === 0){
+            dispatch(loadProfileActionCreator(response))
+        }
+    }
+}
+
+export const loadPhotoThunkCreator = photoFile => {
+    return async dispatch => {
+        let response = await userAPI.loadPhoto(photoFile);
+
+        if(response.data.resultCode === 0) {
+            dispatch(loadPhotoActionCreator(response.data.data.photos))
+        }
+    }
+}
