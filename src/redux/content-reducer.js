@@ -1,4 +1,5 @@
 import { userAPI } from "../axios/api";
+import { stopSubmit } from "redux-form";
 
 const ADD_POSTS = 'ADD-POSTS';
 const CURRENT_PROFILE = 'CURRENT_PROFILE';
@@ -47,7 +48,7 @@ const contentReducer = (state = initialState, action) => {
         
         case LOAD_PHOTO: 
             return {
-                ...state, currentProfile: {...state.currentProfile, photos: action.photo}
+                ...state, currentProfile: {...state.currentProfile, photos: action.photos}
             }
 
 
@@ -63,7 +64,7 @@ export const addPostsActionCreator = (text) => ({ type: ADD_POSTS, text });
 export const loadProfileActionCreator = (data) => ({ type: CURRENT_PROFILE, data });
 export const getStatusActionCreator = status => ({ type: GET_STATUS, status });
 export const deletePostActionCreator = (postId) => ({ type: DELETE_POST, postId })
-export const loadPhotoActionCreator = photo => ({type: LOAD_PHOTO, photo})
+export const loadPhotoActionCreator = photos => ({type: LOAD_PHOTO, photos})
 
 
 export const getProfileThunkCreator = userId => {
@@ -93,10 +94,14 @@ export const setStatusThunkCreator = status => {
 
 export const editProfileThunkCreator = profile => {
     return async (dispatch, getState) => {
+        let userId = getState().auth.userId;
         let response = await userAPI.editProfile(profile);
 
         if(response.data.resultCode === 0){
-            dispatch(loadProfileActionCreator(response))
+            dispatch(getProfileThunkCreator(userId))
+        } else {
+            dispatch(stopSubmit('editMode', { _error: response.data.messages[0] }))
+            return Promise.reject(response.data.messages[0])
         }
     }
 }

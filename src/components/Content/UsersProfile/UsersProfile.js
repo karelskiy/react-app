@@ -38,7 +38,7 @@ let UsersProfile = (props) => {
                         return <Contacts key={i} contactKey={i} contactValue={props.currentProfile.contacts[i]} />
                     })}
                 </div>
-            </div> : <UsersForm initialValues={props.currentProfile} save={cancelEditMode} editProfile={props.editProfile} />}
+            </div> : <UsersForm editProfile={props.editProfile} currentProfile={props.currentProfile} initialValues={props.currentProfile} />}
         </div>
     )
 }

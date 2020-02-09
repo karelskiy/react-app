@@ -16,7 +16,6 @@ class ContentContainer extends Component {
 
     componentDidMount() {
         this.refresh();
-        console.log(this.props.match.params.userId)
     }
 
     componentDidUpdate(prevProps) {
@@ -27,6 +26,7 @@ class ContentContainer extends Component {
     
 
     render() {
+
         return (
             <div>
                 <Content loadPhoto={this.props.loadPhoto} editProfile={this.props.editProfile} {...this.props} id={this.props.match.params.userId} currentProfile={this.props.currentProfile} status={this.props.status} setStatus={this.props.setStatus} />
