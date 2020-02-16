@@ -6,13 +6,13 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
 class ContentContainer extends Component {
-
+    
     refresh() {
         let userId = this.props.match.params.userId || this.props.myId || (this.props.history.push('/login'))
         this.props.getProfile(userId);
         this.props.getStatus(userId);
-
     }
+
 
     componentDidMount() {
         this.refresh();
@@ -23,7 +23,7 @@ class ContentContainer extends Component {
             this.refresh();
         }
     }
-    
+
 
     render() {
 
@@ -64,7 +64,7 @@ let mapDispatchToProps = (dispatch) => {
             dispatch(editProfileThunkCreator(profile));
         },
 
-        loadPhoto(photo){
+        loadPhoto(photo) {
             dispatch(loadPhotoThunkCreator(photo));
         }
 

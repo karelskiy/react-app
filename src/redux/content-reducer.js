@@ -43,12 +43,12 @@ const contentReducer = (state = initialState, action) => {
 
         case DELETE_POST:
             return {
-                ...state, PostsData: [...state.PostsData.filter(i => i.id !== action.postId)] 
+                ...state, PostsData: [...state.PostsData.filter(i => i.id !== action.postId)]
             }
-        
-        case LOAD_PHOTO: 
+
+        case LOAD_PHOTO:
             return {
-                ...state, currentProfile: {...state.currentProfile, photos: action.photos}
+                ...state, currentProfile: { ...state.currentProfile, photos: action.photos }
             }
 
 
@@ -64,7 +64,7 @@ export const addPostsActionCreator = (text) => ({ type: ADD_POSTS, text });
 export const loadProfileActionCreator = (data) => ({ type: CURRENT_PROFILE, data });
 export const getStatusActionCreator = status => ({ type: GET_STATUS, status });
 export const deletePostActionCreator = (postId) => ({ type: DELETE_POST, postId })
-export const loadPhotoActionCreator = photos => ({type: LOAD_PHOTO, photos})
+export const loadPhotoActionCreator = photos => ({ type: LOAD_PHOTO, photos })
 
 
 export const getProfileThunkCreator = userId => {
@@ -85,32 +85,30 @@ export const getStatusThunkCreator = id => {
 export const setStatusThunkCreator = status => {
     return async dispatch => {
         let response = await userAPI.setStatus(status);
-        
+
         if (response.data.resultCode === 0) {
             dispatch(getStatusActionCreator(status))
         }
     }
 }
 
-export const editProfileThunkCreator = profile => {
-    return async (dispatch, getState) => {
-        let userId = getState().auth.userId;
-        let response = await userAPI.editProfile(profile);
+export const editProfileThunkCreator = profile => async (dispatch, getState) => {
+    let userId = getState().auth.userId;
+    let response = await userAPI.editProfile(profile);
 
-        if(response.data.resultCode === 0){
-            dispatch(getProfileThunkCreator(userId))
-        } else {
-            dispatch(stopSubmit('editMode', { _error: response.data.messages[0] }))
-            return Promise.reject(response.data.messages[0])
-        }
+    if (response.data.resultCode === 0) {
+        dispatch(getProfileThunkCreator(userId))
+    } else {
+        dispatch(stopSubmit('editMode', { _error: response.data.messages[0] }));
     }
+
 }
 
 export const loadPhotoThunkCreator = photoFile => {
     return async dispatch => {
         let response = await userAPI.loadPhoto(photoFile);
 
-        if(response.data.resultCode === 0) {
+        if (response.data.resultCode === 0) {
             dispatch(loadPhotoActionCreator(response.data.data.photos))
         }
     }

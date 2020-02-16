@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Input, Textarea } from '../../common/formsControl/FormsControl'
 import { required } from '../../../utilits/validators/validators'
-import classes from './UsersProfile.module.css';
 import c from './../../../components/common/formsControl/FormsControl.module.css'
 import { editProfileThunkCreator } from '../../../redux/content-reducer';
 
@@ -10,9 +9,10 @@ import { editProfileThunkCreator } from '../../../redux/content-reducer';
 export default class UsersForm extends Component {
 
     onSubmit(dataForm) {
-        editProfileThunkCreator(dataForm)
-    //    this.props.editProfile(dataForm)
-            .then(() => this.props.cancelEditMode())
+        // await editProfileThunkCreator(dataForm);
+        let result = this.props.editProfile(dataForm);
+        // this.props.cancelEditMode();
+        // this.props.editProfile(dataForm)
     }
 
     render() {
