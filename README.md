@@ -1,4 +1,4 @@
 ## React-app
 
 > This is my first React project which includes many concepts.
-> In future this will be link on deploy  
+> This site was built using [GitHub Pages](https://karelskiy.github.io/react-app/#/)
