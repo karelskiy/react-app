@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import './App.css';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter, Redirect, Switch } from 'react-router-dom';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 // import DialogsContainer from './components/Dialogs/DialogsContainer';
@@ -36,12 +36,16 @@ class App extends Component {
         <HeaderContainer />
         <NavContainer />
         <div className='AppContents'>
+          <Switch>
+          <Route path='/' exact><Redirect to='/profile'/></Route>
           <Route path='/profile/:userId?' render={() => withSuspense(ContentContainer)} />
           <Route path='/dialogs' render={() => withSuspense(DialogsContainer)} />
           <Route path='/users/' render={() => <FindUsersContainer />} />
           <Route path='/login' render={() => <LoginContainer />} />
           <Route path='/music' component={Music} />
           <Route path='/settings' component={Settings} />
+          <Route path='*' render={()=><div>404 Not Found</div>}/>
+          </Switch>
         </div>
       </div>
     );

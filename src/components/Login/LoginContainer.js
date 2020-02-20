@@ -10,7 +10,7 @@ class LoginContainer extends Component {
         if(this.props.isAuth) return <Redirect to='/profile'/>
         return (
             <div>
-                <Login putLogin={this.props.putLogin} /> 
+                <Login putLogin={this.props.putLogin} captcha={this.props.captcha} /> 
             </div>
         )
     }
@@ -20,14 +20,15 @@ class LoginContainer extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        captcha: state.auth.captcha
     }
 }
 
 let mapDispatchToProps = dispatch => {
     return {
-        putLogin(email, password, rememberMe){
-            dispatch(putLoginTunkCreator(email, password, rememberMe))
+        putLogin(email, password, rememberMe, captcha){
+            dispatch(putLoginTunkCreator(email, password, rememberMe,captcha))
         }
     }
 }

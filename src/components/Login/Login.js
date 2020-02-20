@@ -7,15 +7,15 @@ import classes from './../common/formsControl/FormsControl.module.css'
 export default class Login extends Component {
 
     onSubmit(dataForm){
-        let { email, password, rememberMe } = dataForm
-        this.props.putLogin(email, password, rememberMe)
+        let { email, password, rememberMe, captcha } = dataForm
+        this.props.putLogin(email, password, rememberMe, captcha)
     }
 
     render() {
         return (
             <div>
                 <h1>LOGIN</h1>
-                <LoginReduxForm onSubmit={this.onSubmit.bind(this)} />
+                <LoginReduxForm onSubmit={this.onSubmit.bind(this)} captcha={this.props.captcha} />
             </div>
         )
     }
@@ -34,9 +34,12 @@ class LoginForm extends Component {
                 
                     <Field type={'checkbox'} checked name={'rememberMe'} component={'input'} />remember me
                     <br/>
+                    {this.props.captcha && <img src={this.props.captcha} />}
+                    {this.props.captcha && <Field placeholder={'captcha'} name={'captcha'} component={Input} validate={[required]} />}
                     {this.props.error && <div>
                         <span  className={classes.errorSpan}>{this.props.error}</span>
                     </div>}
+                   
                     <button>Submit</button>
                 
             </form>

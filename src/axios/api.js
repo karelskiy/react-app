@@ -55,10 +55,17 @@ export let userAPI = {
 }
 
 export let authAPI = {
-    putLogin(email, password, rememberMe) {
-        return instance.post(`auth/login`, { email, password, rememberMe })
+    putLogin(email, password, rememberMe, captcha) {
+        return instance.post(`auth/login`, { email, password, rememberMe, captcha })
     },
     deleteLogin() {
         return instance.delete(`auth/login`)
+    }
+}
+
+
+export let captchaAPI = {
+    getCaptcha(){
+        return instance.get(`security/get-captcha-url`)
     }
 }
