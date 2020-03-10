@@ -26,7 +26,6 @@ class App extends Component {
 
   componentDidMount() {
     this.props.isAuthorizedThunkCreator()
-
   }
 
   render() {
@@ -50,8 +49,8 @@ class App extends Component {
       </div>
     );
   }
-
 }
+
 let mapStateToProps = (state) => {
   return {
     isAuthorized: state.app.isAuthorized

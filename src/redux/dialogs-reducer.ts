@@ -1,5 +1,14 @@
-const CLICK = 'CLICK';
+const CLICK: string = 'CLICK';
 
+type DialogsType = {
+    id: number,
+    name: string
+}
+
+type MessageType = {
+    id: number,
+    message: string
+}
 
 let initialState = {
     DialogsData: [
@@ -8,15 +17,17 @@ let initialState = {
         { id: 3, name: 'Alina' },
         { id: 4, name: 'Denis' },
         { id: 5, name: 'Marina' },
-    ],
+    ] as Array<DialogsType>,
     MessageData: [
         { id:1, message: 'Hi, how are you?)' },
         { id:2, message: 'How much it cost?' },
         { id:3, message: 'Sorry, but i can`t' },
-    ],
+    ] as Array<MessageType>,
 };
 
-const dialogReducer = (state = initialState, action) => {
+type InitiateStateType = typeof initialState
+
+const dialogReducer = (state: InitiateStateType = initialState, action: any): InitiateStateType => {
     switch (action.type) {
 
         case CLICK: {
@@ -36,5 +47,9 @@ const dialogReducer = (state = initialState, action) => {
 }
 
 
-export const clickActionCreator = (data) => ({ type: CLICK, data });
+type ClickActionCreatorType = {
+    type: typeof CLICK,
+    data: any
+}
+export const clickActionCreator = (data: any): ClickActionCreatorType => ({ type: CLICK, data });
 export default dialogReducer;

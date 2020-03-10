@@ -1,12 +1,21 @@
 import { isLoginThunkCreator } from "./auth-reducer";
 
-const IS_AUTHORIZED = 'IS_AUTHORIZED';
+const IS_AUTHORIZED: string = 'IS_AUTHORIZED';
  
-let initiateState = {
+type InitiateStateType = {
+    isAuthorized: boolean
+}
+
+const initiateState: InitiateStateType = {
     isAuthorized: false
 }
 
-const appReducer = (state = initiateState, action) => {
+type ActionType = {
+    type: typeof IS_AUTHORIZED,
+}
+
+
+const appReducer = (state = initiateState, action: ActionType): InitiateStateType => {
     switch (action.type) {
         case IS_AUTHORIZED:
             return {
@@ -18,9 +27,9 @@ const appReducer = (state = initiateState, action) => {
     }
 }
 
-export const isAuthorizedProfileActionCreator = () => ({ type: IS_AUTHORIZED })
+export const isAuthorizedProfileActionCreator = (): ActionType => ({ type: IS_AUTHORIZED })
 
-export const isAuthorizedThunkCreator = () => dispatch => {
+export const isAuthorizedThunkCreator = () => (dispatch: any) => {
     let promise = dispatch(isLoginThunkCreator());
     Promise.all([promise])
         .then(() => {
